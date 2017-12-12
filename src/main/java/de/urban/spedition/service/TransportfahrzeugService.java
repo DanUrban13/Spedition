@@ -1,5 +1,5 @@
 package de.urban.spedition.service;
 
-public class TransportfahrzeugService {
+public class TransportfahrzeugService implements TransportfahrzeugServiceIF {
     
 }

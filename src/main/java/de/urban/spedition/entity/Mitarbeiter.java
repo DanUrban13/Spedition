@@ -19,6 +19,16 @@ public class Mitarbeiter extends GeneratedIdEntity{
     private Date eintrittsDatum;
     private Date geburtsDatum;
 
+    public Mitarbeiter() {
+    }
+
+    public Mitarbeiter(String name, String vorname, double gehalt, Date geburtsDatum) {
+        this.name = name;
+        this.vorname = vorname;
+        this.gehalt = gehalt;
+        this.geburtsDatum = geburtsDatum;
+    }
+    
     public Transportfahrzeug getFahrzeug() {
         return fahrzeug;
     }

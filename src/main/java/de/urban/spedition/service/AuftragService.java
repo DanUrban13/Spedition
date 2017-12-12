@@ -1,5 +1,5 @@
 package de.urban.spedition.service;
 
-public class AuftragService {
+public class AuftragService implements AuftragServiceIF {
     
 }
