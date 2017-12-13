@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    <navigation-rule>
+            <description>Generelle Navigation</description>
+            <from-view-id>index.xhtml</from-view-id>
+
+            <navigation-case>
+             
+                <from-outcome>persMgmtNav</from-outcome>
+                <to-view-id>/views/persmgmt.xhtml</to-view-id>
+            </navigation-case>  
+
+              <navigation-case>
+              
+                <from-outcome>flottenMgmtNav</from-outcome>
+                <to-view-id>/views/flottenmgmt.xhtml</to-view-id>
+            </navigation-case>       
+        </navigation-rule> 
+
+</faces-config>
