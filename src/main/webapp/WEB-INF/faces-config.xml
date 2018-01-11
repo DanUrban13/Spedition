@@ -4,20 +4,95 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     <navigation-rule>
-            <description>Generelle Navigation</description>
-            <from-view-id>index.xhtml</from-view-id>
+        <description>Generelle Navigation</description>
+        
+        <navigation-case>
+            <from-outcome>mitarbeiterErstellen</from-outcome>
+            <to-view-id>/views/mitarbeiter/mitarbeiterErstellen.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>mitarbeiterAnzeigen</from-outcome>
+            <to-view-id>/views/mitarbeiter/mitarbeiterListe.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>mitarbeiterÄndern</from-outcome>
+            <to-view-id>/views/mitarbeiter/mitarbeiterAendern.xhtml</to-view-id>
+        </navigation-case>
 
-            <navigation-case>
-             
-                <from-outcome>persMgmtNav</from-outcome>
-                <to-view-id>/views/persmgmt.xhtml</to-view-id>
-            </navigation-case>  
+        <navigation-case>
+            <from-outcome>aendereMitarbeiterErweitert</from-outcome>
+            <to-view-id>/views/mitarbeiter/mitarbeiterAendernErweitert.xhtml</to-view-id>
+        </navigation-case>        
+        
+        <navigation-case>
+            <from-outcome>mitarbeiterLöschen</from-outcome>
+            <to-view-id>/views/mitarbeiter/mitarbeiterLoeschen.xhtml</to-view-id>
+        </navigation-case>
 
-              <navigation-case>
-              
-                <from-outcome>flottenMgmtNav</from-outcome>
-                <to-view-id>/views/flottenmgmt.xhtml</to-view-id>
-            </navigation-case>       
-        </navigation-rule> 
+        <navigation-case>
+            <from-outcome>flottenMgmtNav</from-outcome>
+            <to-view-id>/views/transport/transportfahrzeugErstellen.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>fuehrerscheinMgmtNav</from-outcome>
+            <to-view-id>/views/fuehrerscheinKlasse/fuehrerscheinklasseErstellen.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>eintragFSok</from-outcome>
+            <to-view-id>/views/fuehrerscheinKlasse/fuehrerscheinklasseErstellenBestaetigung.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>fuehrerscheinKlasseErstellen</from-outcome>
+            <to-view-id>/views/fuehrerscheinKlasse/fuehrerscheinklasseErstellen.xhtml</to-view-id>
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>fuehrerscheinKlasseAnzeigen</from-outcome>
+            <to-view-id>/views/fuehrerscheinKlasse/fuehrerscheinklasseAnzeigen.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>fuehrerscheinKlasseLöschen</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>auftragErstellen</from-outcome>
+            <to-view-id>/views/auftrag/auftragErstellen.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>auftragAnzeigen</from-outcome>
+            <to-view-id>/views/auftrag/auftragAnzeigen.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>auftragErstellen_1</from-outcome>
+            <to-view-id>/views/auftrag/auftragErstellen_1.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>auftragErstellen_2</from-outcome>
+            <to-view-id>/views/auftrag/auftragErstellen_2.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>erstellePaket</from-outcome>
+            <to-view-id>/views/auftrag/paketErstellen.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>erstelleContainer</from-outcome>
+            <to-view-id>/views/auftrag/paketContainerErstellen.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>container_eintrag_io</from-outcome>
+            <to-view-id>/views/auftrag/paketcontainer/containerIo.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>container_eintrag_nio</from-outcome>
+            <to-view-id>/views/auftrag/paketcontainer/containerNio.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 
 </faces-config>

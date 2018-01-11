@@ -1,0 +1,30 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            template="/WEB-INF/auftrTemplate.xhtml"
+            xmlns:h="http://xmlns.jcp.org/jsf/html"
+            xmlns:f="http://xmlns.jcp.org/jsf/core">
+        <ui:define name="maintop">
+            Auftragsmanagement
+        </ui:define>
+        <ui:define name="auftrcontent">            
+            
+            <h1>Erstelle neuen PaketContainer</h1>
+            <h:form>                
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Gewicht in Kg"/>
+                    <h:inputText value="#{auftragServiceModel.containerMaxGewichtInKg}"/>
+
+                </h:panelGrid>
+                
+                <h:panelGrid columns="3">      
+                    <h:outputLabel value="Länge in M"/>
+                    <h:inputText value="#{auftragServiceModel.containerLaengeInM}"/>
+                    <h:outputLabel value="Breite in M"/>
+                    <h:inputText value="#{auftragServiceModel.containerBreiteInM}"/>
+                    <h:outputLabel value="Höhe in M"/>
+                    <h:inputText value="#{auftragServiceModel.containerHoeheInM}"/>
+                </h:panelGrid>
+                
+                <h:commandButton value="Container erstellen" action="#{auftragServiceModel.erstellePaketContainer()}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>

@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.webshop.karatay.de/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="BestellungService" targetNamespace="http://service.webshop.karatay.de/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.webshop.karatay.de/" elementFormDefault="unqualified" targetNamespace="http://service.webshop.karatay.de/" version="1.0">
+
+  <xs:element name="bestellung" type="tns:bestellung"/>
+
+  <xs:element name="setzeLieferdatum" type="tns:setzeLieferdatum"/>
+
+  <xs:element name="setzeLieferdatumResponse" type="tns:setzeLieferdatumResponse"/>
+
+  <xs:complexType name="setzeLieferdatum">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:bestellung"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="bestellung">
+    <xs:complexContent>
+      <xs:extension base="tns:generatedIdEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="bestellDatum" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="lieferDatum" type="xs:dateTime"/>
+          <xs:element name="gesamtPreis" type="xs:double"/>
+          <xs:element minOccurs="0" name="bestellNr" type="xs:long"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType abstract="true" name="generatedIdEntity">
+    <xs:complexContent>
+      <xs:extension base="tns:singleIdEntity">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType abstract="true" name="singleIdEntity">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="setzeLieferdatumResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:bestellung"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="setzeLieferdatumResponse">
+    <wsdl:part element="tns:setzeLieferdatumResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="setzeLieferdatum">
+    <wsdl:part element="tns:setzeLieferdatum" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="BestellungService">
+    <wsdl:operation name="setzeLieferdatum">
+      <wsdl:input message="tns:setzeLieferdatum" name="setzeLieferdatum">
+    </wsdl:input>
+      <wsdl:output message="tns:setzeLieferdatumResponse" name="setzeLieferdatumResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BestellungServiceSoapBinding" type="tns:BestellungService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="setzeLieferdatum">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="setzeLieferdatum">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="setzeLieferdatumResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="BestellungService">
+    <wsdl:port binding="tns:BestellungServiceSoapBinding" name="BestellungServicePort">
+      <soap:address location="http://im-lamport:8080/WebshopKaratay/BestellungService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

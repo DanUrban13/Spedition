@@ -3,15 +3,25 @@ package de.urban.spedition.entity;
 import de.urban.spedition.entity.util.GeneratedIdEntity;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
+@NamedQuery(
+        name="Mitarbeiter.alle",
+        query="SELECT m FROM Mitarbeiter AS m"
+)
 public class Mitarbeiter extends GeneratedIdEntity{
-    @OneToOne(mappedBy="fahrer")
+    @OneToOne(mappedBy="fahrer", fetch = FetchType.EAGER)
     private Transportfahrzeug fahrzeug;
     @ManyToMany
+    @Fetch(FetchMode.SUBSELECT)
     private List<FsKlasse> fuehrerscheinklassen;
     private String name;
     private String vorname;
@@ -87,6 +97,15 @@ public class Mitarbeiter extends GeneratedIdEntity{
 
     public Long getPersonalNr() {
         return id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Mitarbeiter{" + "fahrzeug=" + fahrzeug + ", fuehrerscheinklassen=" + fuehrerscheinklassen + ", name=" + name + ", vorname=" + vorname + ", gehalt=" + gehalt + ", eintrittsDatum=" + eintrittsDatum + ", geburtsDatum=" + geburtsDatum + '}';
     }
    
     

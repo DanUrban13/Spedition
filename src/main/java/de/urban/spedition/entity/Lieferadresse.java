@@ -7,10 +7,7 @@ import javax.persistence.Entity;
 public class Lieferadresse extends GeneratedIdEntity{
     
     private String lieferName;
-    private String strasse;
-    private String nr;
-    private String plz;
-    private String ort;
+    private Adresse adresse;
 
     public String getLieferName() {
         return lieferName;
@@ -20,37 +17,15 @@ public class Lieferadresse extends GeneratedIdEntity{
         this.lieferName = lieferName;
     }
 
-    public String getStrasse() {
-        return strasse;
+    public Adresse getAdresse() {
+        return adresse;
     }
 
-    public void setStrasse(String strasse) {
-        this.strasse = strasse;
+    public void setAdresse(Adresse adresse) {
+        this.adresse = adresse;
     }
-
-    public String getNr() {
-        return nr;
-    }
-
-    public void setNr(String nr) {
-        this.nr = nr;
-    }
-
-    public String getPlz() {
-        return plz;
-    }
-
-    public void setPlz(String plz) {
-        this.plz = plz;
-    }
-
-    public String getOrt() {
-        return ort;
-    }
-
-    public void setOrt(String ort) {
-        this.ort = ort;
-    }
+    
+    
 
     public Long getAdressNr() {
         return id;

@@ -1,0 +1,109 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            template="/WEB-INF/auftrTemplate.xhtml"
+            xmlns:h="http://xmlns.jcp.org/jsf/html"
+            xmlns:f="http://xmlns.jcp.org/jsf/core">
+        <ui:define name="maintop">
+            Auftragsmanagment
+        </ui:define>
+        <ui:define name="auftrcontent">            
+            
+            <h1>Erstelle neuen Auftrag</h1>
+            
+                <h1>Generelle Informationen</h1>
+                <h:form>
+                    <h:panelGrid columns="4">      
+                        <h:outputLabel value="BestellNr"/>
+                        <h:inputText value="#{auftragServiceModel.auftragBestellNr}"/>
+                        <h:outputLabel value="Auftraggeber"/>
+                        <h:inputText value="#{auftragServiceModel.auftragName}"/>
+                        <h:outputLabel value="Straße"/>
+                        <h:inputText value="#{auftragServiceModel.auftragStrasse}"/>
+                        <h:outputLabel value="PLZ"/>
+                        <h:inputText value="#{auftragServiceModel.auftragPLZ}"/>
+                        <h:outputLabel value="Ort"/>
+                        <h:inputText value="#{auftragServiceModel.auftragOrt}"/>
+                    </h:panelGrid>
+                    <h:commandButton value="Weiter" action="auftragErstellen_1"/>
+                </h:form>
+                
+                <h1>Erstelle Pakete für Auftrag</h1>
+                <h:panelGrid columns="3">
+                    <h:column>
+                        <h:form>
+                            <h:commandButton value="Erstelle Paket" action="erstellePaket"/>
+                        </h:form>
+
+                        <h:form>
+                            <h:commandButton value="Generiere Pakete" action="#{auftragServiceModel.erstelleTestPakete()}"/>
+                        </h:form>
+
+                        <h:form>
+                            <h:commandButton value="Packe Pakete in Container" action="#{auftragServiceModel.packePakete()}"/>
+                        </h:form>
+                    </h:column>
+                    <h:column>
+                        <h:outputLabel value="Max mögliches Volumen:"/>
+                        <h:outputText value="#{auftragServiceModel.maxVolumen}">
+                            <f:convertNumber groupingUsed="true" minFractionDigits="1" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <h:outputLabel value="Aktuelles Volumen"/>
+                        <h:outputText value="#{auftragServiceModel.aktuellesVolumen}">
+                            <f:convertNumber groupingUsed="true" minFractionDigits="1" />
+                        </h:outputText>
+                    </h:column>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:column>
+                <h:dataTable var="paket" value="#{auftragServiceModel.aktuellePakete}">
+                    <h:column>    				
+                        <f:facet name="header">Paket Nr</f:facet>  
+                        #{paket.id}
+                    </h:column>
+                    <h:column>    				
+                        <f:facet name="header">Gewicht in Kg</f:facet>                          
+                        <h:outputText value="#{paket.gewichtInKg}">
+                            <f:convertNumber groupingUsed="true" minFractionDigits="1" />
+                        </h:outputText>
+                    </h:column>
+
+                    <h:column>    				
+                        <f:facet name="header">Länge in M</f:facet>  
+                        <h:outputText value="#{paket.laengeInM}">
+                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                        </h:outputText>
+                    </h:column>
+                    
+                    <h:column>    				
+                        <f:facet name="header">Breite in M</f:facet>  
+                        <h:outputText value="#{paket.breiteInM}">
+                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                        </h:outputText>
+                    </h:column>
+
+                    <h:column>    				
+                        <f:facet name="header">Höhe in M</f:facet>  
+                        <h:outputText value="#{paket.hoeheInM}">
+                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                        </h:outputText>
+                    </h:column>    
+                </h:dataTable>
+                        </h:column>
+                    <h:column>
+                <h:dataTable var="container" rendered="#{not empty auftragServiceModel.paketContainer}" value="#{auftragServiceModel.paketContainer}">
+                    <h:column>    				
+                        <f:facet name="header">Container Nr</f:facet>  
+                        #{container.id}
+                    </h:column>
+                    <h:column>    				
+                        <f:facet name="header">Paketanzahl</f:facet>  
+                        #{container.pakete.size()}
+                    </h:column>
+
+                </h:dataTable>
+                        </h:column>
+                </h:panelGrid>
+        </ui:define>
+    </ui:composition>

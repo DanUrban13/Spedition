@@ -7,7 +7,19 @@
     margin: 0px 0px 10px 0px;
 }
 
+#maintop {
+    position: relative;
+    background-color: #036fab;
+    color: white;
+    padding: 5px;
+    margin: 0px 0px 10px 0px;
+    height: 80px;
+    font-size: xx-large;
+    vertical-align: text-top;
+}
+
 #bottom {
+    clear: both;
     position: relative;
     background-color: #c2dfef;
     padding: 5px;
@@ -18,7 +30,9 @@
     float: left;
     background-color: #ece3a5;
     padding: 5px;
+    margin-bottom: 10px;
     width: 150px;
+    height: max;
 }
 
 #right {

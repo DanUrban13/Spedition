@@ -1,24 +1,35 @@
 package de.urban.spedition.entity;
 
 import de.urban.spedition.entity.util.GeneratedIdEntity;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 @Entity
+@NamedQuery(
+        name="PaketContainer.alle",
+        query="SELECT p FROM PaketContainer AS p "
+)
 public class PaketContainer extends GeneratedIdEntity{
-    @OneToMany(mappedBy="container")
+    @OneToMany(mappedBy="container",fetch = FetchType.EAGER)
     private List<Paket> pakete;
     @ManyToOne
     private Auftrag auftrag;
-    private double maxGweichtInKg;
-    private double aktuellesGweichtInKg;
+    private double maxGewichtInKg;
+    private double aktuellesGewichtInKg;
     private double laengeInM;
     private double hoeheInM;
     private double breiteInM;
 
+    public PaketContainer() {
+    }    
+    
     public List<Paket> getPakete() {
+        if(this.pakete==null) this.pakete = new ArrayList<Paket>();
         return pakete;
     }
 
@@ -34,22 +45,22 @@ public class PaketContainer extends GeneratedIdEntity{
         this.auftrag = auftrag;
     }
 
-    public double getMaxGweichtInKg() {
-        return maxGweichtInKg;
+    public double getMaxGewichtInKg() {
+        return maxGewichtInKg;
     }
 
-    public void setMaxGweichtInKg(double maxGweichtInKg) {
-        this.maxGweichtInKg = maxGweichtInKg;
+    public void setMaxGewichtInKg(double maxGewichtInKg) {
+        this.maxGewichtInKg = maxGewichtInKg;
     }
 
-    public double getAktuellesGweichtInKg() {
-        return aktuellesGweichtInKg;
+    public double getAktuellesGewichtInKg() {
+        return aktuellesGewichtInKg;
     }
 
-    public void setAktuellesGweichtInKg(double aktuellesGweichtInKg) {
-        this.aktuellesGweichtInKg = aktuellesGweichtInKg;
+    public void setAktuellesGewichtInKg(double aktuellesGewichtInKg) {
+        this.aktuellesGewichtInKg = aktuellesGewichtInKg;
     }
-
+    
     public double getLaengeInM() {
         return laengeInM;
     }
@@ -75,7 +86,12 @@ public class PaketContainer extends GeneratedIdEntity{
     }
 
     public Long getPaketContainerNr() {
-        return id;
+        return getId();
+    }
+
+    @Override
+    public String toString() {
+        return "PaketContainer{" + "pakete=" + pakete + ", auftrag=" + auftrag + ", maxGewichtInKg=" + maxGewichtInKg + ", aktuellesGewichtInKg=" + aktuellesGewichtInKg + ", laengeInM=" + laengeInM + ", hoeheInM=" + hoeheInM + ", breiteInM=" + breiteInM + '}';
     }
     
     

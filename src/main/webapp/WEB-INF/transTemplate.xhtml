@@ -1,0 +1,22 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            template="/WEB-INF/mainTemplate.xhtml"
+            xmlns:h="http://xmlns.jcp.org/jsf/html"
+            xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="maincontent">
+        <div id="top" class="top">
+            <h:form>
+                <h:commandButton value="Transportfahrzeug erstellen" action="transportfahrzeugErstellen" label="Label"/>
+                   
+                <h:commandButton value="Alle Transportfahrzeuge anzeigen" action="mitarbeiterAnzeigen" label="Label"/> 
+                <h:commandButton value="Transportfahrzeug ändern" action="mitarbeiterÄndern" label="Label"/> 
+                <h:commandButton value="Transportfahrzeug löschen" action="mitarbeiterLöschen" label="Label"/> 
+            </h:form>
+        </div>
+        <div>
+            <div id="content" class="left_content">
+                <ui:insert name="transcontent"></ui:insert>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -3,18 +3,29 @@ package de.urban.spedition.entity;
 import de.urban.spedition.entity.util.GeneratedIdEntity;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
+@NamedQuery(
+        name="Transportfahrzeug.alle",
+        query="SELECT t FROM Transportfahrzeug AS t"
+)
 public class Transportfahrzeug extends GeneratedIdEntity{
     @OneToOne
     private Mitarbeiter fahrer;
-    @OneToMany(mappedBy="transporter")
-    private List<Auftrag> aktuelleAuftraege;
+    @OneToOne(mappedBy="transporter", fetch = FetchType.EAGER)
+    private Auftrag aktuellerAuftrag;
     @ManyToOne
     private FsKlasse fsBenoetigt;
+    
+    private String kennzeichen;
     private double ladeLaengeInM;
     private double ladeBreiteInM;
     private double ladeHoeheInM;
@@ -28,14 +39,14 @@ public class Transportfahrzeug extends GeneratedIdEntity{
         this.fahrer = fahrer;
     }
 
-    public List<Auftrag> getAktuelleAuftraege() {
-        return aktuelleAuftraege;
+    public Auftrag getAktuellerAuftrag() {
+        return aktuellerAuftrag;
     }
 
-    public void setAktuelleAuftraege(List<Auftrag> aktuelleAuftraege) {
-        this.aktuelleAuftraege = aktuelleAuftraege;
+    public void setAktuellerAuftrag(Auftrag aktuellerAuftrag) {
+        this.aktuellerAuftrag = aktuellerAuftrag;
     }
-
+    
     public FsKlasse getFsBenoetigt() {
         return fsBenoetigt;
     }
@@ -77,6 +88,18 @@ public class Transportfahrzeug extends GeneratedIdEntity{
     }
 
     public Long getFahrzeugNr() {
+        return id;
+    }
+
+    public String getKennzeichen() {
+        return kennzeichen;
+    }
+
+    public void setKennzeichen(String kennzeichen) {
+        this.kennzeichen = kennzeichen;
+    }
+
+    public Long getId() {
         return id;
     }
     

@@ -1,0 +1,35 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            template="/WEB-INF/auftrTemplate.xhtml"
+            xmlns:h="http://xmlns.jcp.org/jsf/html"
+            xmlns:f="http://xmlns.jcp.org/jsf/core">
+        <ui:define name="maintop">
+            Auftragsmanagment
+        </ui:define>
+        <ui:define name="auftrcontent">            
+            
+            <h1>Alle Aufträge</h1>
+
+                <h:dataTable var="auftrag" value="#{auftragServiceModel.leseAlleAuftraege()}">
+                    <h:column>    				
+                        <f:facet name="header">Auftrag Nr</f:facet>  
+                        #{auftrag.auftragNr}
+                    </h:column>
+                    <h:column>    				
+                        <f:facet name="header">Bestell Nr</f:facet>  
+                        #{auftrag.bestellNr}
+                    </h:column>
+                    <h:column>    				
+                        <f:facet name="header">Lieferdatum</f:facet>  
+                        #{auftrag.lieferDatum}
+                    </h:column>
+                    <h:column>    				
+                        <f:facet name="header">Einzelpakete</f:facet>  
+                        #{auftrag.individualPakete.size()}
+                    </h:column>
+                    <h:column>    				
+                        <f:facet name="header">Container</f:facet>  
+                        #{auftrag.container.size()}
+                    </h:column>
+                </h:dataTable>
+        </ui:define>
+    </ui:composition>

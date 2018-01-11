@@ -1,0 +1,46 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            template="/WEB-INF/persTemplate.xhtml"
+            xmlns:h="http://xmlns.jcp.org/jsf/html"
+            xmlns:f="http://xmlns.jcp.org/jsf/core">
+        <ui:define name="maintop">
+            Personalmanagement
+        </ui:define>
+        <ui:define name="perscontent">            
+            
+            <h1>Ändere Mitarbeiter</h1>
+            <h:form>
+                
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Vorname:"/>
+                    <h:inputText value="#{personalmgmtModel.vorname}"/>
+
+                    <h:outputLabel value="Nachname:"/>
+                    <h:inputText value="#{personalmgmtModel.nachname}"/>
+                </h:panelGrid>
+                
+                <h:panelGrid columns="2">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Geburtsdatum:"/><br/><br/>             
+                        <h:outputLabel value="Tag: "/>
+                        <h:inputText value="#{personalmgmtModel.gebTag}"/>
+                        <h:outputLabel value="Monat: "/>
+                        <h:inputText value="#{personalmgmtModel.gebMonat}"/>
+                        <h:outputLabel value="Jahr: "/>
+                        <h:inputText value="#{personalmgmtModel.gebJahr}"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Eintrittsdatum:"/><br/><br/>             
+                        <h:outputLabel value="Tag: "/>
+                        <h:inputText value="#{personalmgmtModel.eintrittTag}"/>
+                       
+                        <h:outputLabel value="Monat: "/>
+                        <h:inputText value="#{personalmgmtModel.eintrittMonat}"/>
+                        <h:outputLabel value="Jahr: "/>
+                        <h:inputText value="#{personalmgmtModel.eintrittJahr}"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+                
+                <h:commandButton value="Jetzt einschreiben" action="#{personalmgmtModel.neuerMitarbeiter()}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>

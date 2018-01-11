@@ -1,9 +1,19 @@
 package de.urban.spedition.service;
 
-import javax.jws.WebService;
+import de.urban.spedition.entity.Auftrag;
+import de.urban.spedition.entity.Paket;
+import de.urban.spedition.entity.PaketContainer;
+import java.io.Serializable;
+import java.util.List;
 
-@WebService
-public interface AuftragServiceIF {
-    
-    
+public interface AuftragServiceIF extends Serializable {
+    public Auftrag erstelleAuftrag(Auftrag neuerAuftrag);
+    public Auftrag findeAuftrag(Auftrag auftrag);
+    public Auftrag aendereAuftrag(Auftrag auftrag);
+    public Auftrag loescheAuftrag(Auftrag auftrag);
+    public List<Auftrag> leseAlleAuftraege();
+    public List<Paket> erstelleTestPakete();
+//    public Paket erstellePaket(Paket p);
+    public List<PaketContainer> packePakete(List<Paket> pakete);
+    public PaketContainer erstellePaketContainer(PaketContainer p);
 }

@@ -1,0 +1,49 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            template="/WEB-INF/persTemplate.xhtml"
+            xmlns:h="http://xmlns.jcp.org/jsf/html"
+            xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="maintop">
+        Personalmanagement
+    </ui:define>
+    <ui:define name="perscontent">
+
+        <div>
+            <h:form>
+
+                <h:dataTable var="mitarbeiter" value="#{personalmgmtModel.leseAlleMitarbeiter()}">
+                    <h:column>    				
+                        <f:facet name="header">PersNr</f:facet>  
+                        #{mitarbeiter.id}
+                    </h:column>
+
+                    <h:column>    				
+                        <f:facet name="header">Vorname</f:facet>  
+                        #{mitarbeiter.vorname}
+                    </h:column>
+
+                    <h:column>    				
+                        <f:facet name="header">Nachname</f:facet>  
+                        #{mitarbeiter.name}
+                    </h:column>
+
+                    <h:column>    				
+                        <f:facet name="header">Geburtsdatum</f:facet>  
+                        #{mitarbeiter.geburtsDatum}
+                    </h:column>
+                    <h:column>    				
+                        <f:facet name="header">Eintrittsdatum</f:facet>  
+                        #{mitarbeiter.eintrittsDatum}
+                    </h:column>
+                    <h:column>    				
+                        <f:facet name="header">Gehalt</f:facet>  
+                        #{mitarbeiter.gehalt}
+                    </h:column>
+
+                </h:dataTable>
+
+            </h:form>
+
+        </div>
+
+    </ui:define>
+</ui:composition>

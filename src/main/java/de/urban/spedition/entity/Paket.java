@@ -3,8 +3,11 @@ package de.urban.spedition.entity;
 import de.urban.spedition.entity.util.GeneratedIdEntity;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
+@XmlRootElement
 public class Paket extends GeneratedIdEntity{
     @ManyToOne
     private PaketContainer container;
@@ -53,9 +56,16 @@ public class Paket extends GeneratedIdEntity{
         this.breiteInM = breiteInM;
     }
 
+    @XmlElement
     public Long getPaketNr() {
-        return id;
+        return getId();
     }
+
+    @Override
+    public String toString() {
+        return "Paket{" + "gewichtInKg=" + gewichtInKg + ", hoeheInM=" + hoeheInM + ", laengeInM=" + laengeInM + ", breiteInM=" + breiteInM + '}';
+    }
+    
     
     
     

@@ -1,0 +1,42 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            template="/WEB-INF/transTemplate.xhtml"
+            xmlns:h="http://xmlns.jcp.org/jsf/html"
+            xmlns:f="http://xmlns.jcp.org/jsf/core">
+        <ui:define name="maintop">
+            Fahrzeugmanagement
+        </ui:define>
+        <ui:define name="transcontent">            
+            
+            <h1>Erstelle neues Transportfahrzeug</h1>
+            <h:form>
+                
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Kennzeichen:"/>
+                    <h:inputText value="#{transportmgmtModel.kennzeichen}"/>
+
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Führerscheinklasse auswählen:"/>
+                        <h:selectOneMenu value="#{transportmgmtModel.fsBenoetigt}">
+                            <f:selectItems value="#{transportmgmtModel.leseAlleFsKlasse()}" var="FsKlasse" 
+                                           itemLabel="#{FsKlasse.fsKlasse}"/>
+                            <f:converter binding="#{transportmgmtModel.fsKlasseConverter}"/>
+                        </h:selectOneMenu>
+                    </h:panelGrid>
+                    <h:outputLabel value=""/>
+                    
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Ladefläche Länge in M:"/>
+                        <h:inputText value="#{transportmgmtModel.ladeLaengeInM}"/>
+                        <h:outputLabel value="Ladefläche Breite in M:"/>
+                        <h:inputText value="#{transportmgmtModel.ladeBreiteInM}"/>
+                        <h:outputLabel value="Ladefläche Höhe in M:"/>
+                        <h:inputText value="#{transportmgmtModel.ladeHoeheInM}"/>
+                        <h:outputLabel value="Ladegewicht in Kg:"/>
+                        <h:inputText value="#{transportmgmtModel.ladeGewichtInKg}"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+                                
+                <h:commandButton value="Eintragen" action="#{transportmgmtModel.neuesTransportfahrzeug()}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>

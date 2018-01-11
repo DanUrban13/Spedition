@@ -1,0 +1,28 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            template="/WEB-INF/auftrTemplate.xhtml"
+            xmlns:h="http://xmlns.jcp.org/jsf/html"
+            xmlns:f="http://xmlns.jcp.org/jsf/core">
+        <ui:define name="maintop">
+            Auftragsmanagment
+        </ui:define>
+        <ui:define name="auftrcontent">            
+            
+            <h1>Erstelle neuen Auftrag</h1>
+                <h:form>              
+                <h:panelGrid columns="2">
+                        <h:outputLabel value="Mitarbeiter auswählen:"/>
+                    <h:selectOneMenu value="#{auftragServiceModel.ausgewaehlterMitarbeiter}">
+                        <f:selectItems value="#{auftragServiceModel.leseAlleMitarbeiter()}" var="mitarbeiter" 
+                                       itemLabel="#{mitarbeiter.id} #{mitarbeiter.vorname} #{mitarbeiter.name}"/>
+                        <f:converter binding="#{auftragServiceModel.mitarbeiterConverter}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                
+                    <h:commandButton value="Erstellung abschließen" action="#{auftragServiceModel.erstelleAufrag()}"/>
+                </h:form>
+                
+                <h:form>
+                    <h:commandButton value="Zurück" action="auftragErstellen_1"/>
+                </h:form>
+        </ui:define>
+    </ui:composition>

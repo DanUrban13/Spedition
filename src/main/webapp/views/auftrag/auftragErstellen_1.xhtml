@@ -1,0 +1,31 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            template="/WEB-INF/auftrTemplate.xhtml"
+            xmlns:h="http://xmlns.jcp.org/jsf/html"
+            xmlns:f="http://xmlns.jcp.org/jsf/core">
+        <ui:define name="maintop">
+            Auftragsmanagment
+        </ui:define>
+        <ui:define name="auftrcontent">            
+            
+            <h1>Erstelle neuen Auftrag</h1>
+            <h:form>
+                                
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Fahrzeug auswählen:"/>
+                        <h:selectOneMenu value="#{auftragServiceModel.ausgewaehltesFahrzeug}">
+                        <f:selectItems value="#{auftragServiceModel.leseAlleFahrzeuge()}" var="transportfahrzeug" 
+                                       itemLabel="#{transportfahrzeug.kennzeichen}"/>
+                        <f:converter binding="#{auftragServiceModel.fahrzeugConverter}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:form>
+                    <h:commandButton value="Weiter" action="auftragErstellen_2"/>
+                </h:form>
+            </h:form> 
+                
+                <h:form>
+                    <h:commandButton value="Zurück" action="auftragErstellen"/>
+                </h:form>
+
+        </ui:define>
+    </ui:composition>
