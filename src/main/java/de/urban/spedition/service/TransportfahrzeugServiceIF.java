@@ -14,6 +14,6 @@ public interface TransportfahrzeugServiceIF extends Serializable {
     public List<Transportfahrzeug> leseAlleTransportfahrzeuge();
     public FsKlasse findeFsKlasse(long id);
     public Transportfahrzeug findeTransportfahrzeug(long id);
-    public Transportfahrzeug findeGroesstesVerfuegbares();
+    public Transportfahrzeug findeVerfuegbaresFahrzeug(double volumen);
     
 }

@@ -15,6 +15,7 @@ public class Paket extends GeneratedIdEntity{
     private double hoeheInM;
     private double laengeInM;
     private double breiteInM;
+    private transient int pfuschNummer;
 
     public PaketContainer getContainer() {
         return container;
@@ -64,6 +65,14 @@ public class Paket extends GeneratedIdEntity{
     @Override
     public String toString() {
         return "Paket{" + "gewichtInKg=" + gewichtInKg + ", hoeheInM=" + hoeheInM + ", laengeInM=" + laengeInM + ", breiteInM=" + breiteInM + '}';
+    }
+
+    public int getPfuschNummer() {
+        return pfuschNummer;
+    }
+
+    public void setPfuschNummer(int pfuschNummer) {
+        this.pfuschNummer = pfuschNummer;
     }
     
     

@@ -3,6 +3,7 @@ package de.urban.spedition.entity;
 import de.urban.spedition.entity.util.GeneratedIdEntity;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -15,7 +16,7 @@ import javax.persistence.OneToMany;
         query="SELECT p FROM PaketContainer AS p "
 )
 public class PaketContainer extends GeneratedIdEntity{
-    @OneToMany(mappedBy="container",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="container",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Paket> pakete;
     @ManyToOne
     private Auftrag auftrag;

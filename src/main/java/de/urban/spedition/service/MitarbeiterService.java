@@ -1,5 +1,6 @@
 package de.urban.spedition.service;
 
+import de.urban.spedition.entity.FsKlasse;
 import de.urban.spedition.entity.Mitarbeiter;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -18,10 +19,12 @@ public class MitarbeiterService implements MitarbeiterServiceIF {
     @Transactional
     @Override
     public Mitarbeiter erstelleMitarbeiter(Mitarbeiter neuerMitarbeiter) {
-        System.out.println("Erstelle neuen Mitarbeiter: "
-                + neuerMitarbeiter.getVorname() + " " + neuerMitarbeiter.getName());
+        System.out.println("Neuer Mitarbeiter " + neuerMitarbeiter.toString());
+        for (FsKlasse f : neuerMitarbeiter.getFuehrerscheinklassen()) {
+            if (f != null) em.find(FsKlasse.class, f.getId());
+        }
         em.persist(neuerMitarbeiter);
-        return null;
+        return neuerMitarbeiter;
     }
 
     @Override

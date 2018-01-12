@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -62,12 +61,15 @@ public class AuftragServiceModel implements Serializable {
     private String auftragHausNr;
     private String auftragPLZ;
     private String auftragOrt;
+    private Long auftragNr;
     
     private double neuesPaketGewichtInKg;
     private double neuesPaketLaengeInM;
     private double neuesPaketHoeheInM;
     private double neuesPaketBreiteInM;
     private Long neuesPaketId;
+    
+    private int aktuellePfuschNummer;
     
     private PaketContainer neuerContainer;
     
@@ -80,7 +82,6 @@ public class AuftragServiceModel implements Serializable {
         neuerAuftrag.setBestellNr(this.auftragBestellNr);
         neuerAuftrag.setContainer(this.paketContainer);
         neuerAuftrag.setIndividualPakete(this.aktuellePakete);
-        neuerAuftrag.setTransporter(this.ausgewaehltesFahrzeug);
         Lieferadresse l = new Lieferadresse();
         l.setLieferName(this.auftragName);
         Adresse a = new Adresse();
@@ -95,12 +96,20 @@ public class AuftragServiceModel implements Serializable {
         } catch (Exception e) {
             logger.log(Level.INFO,e.toString());
             return "auftragAnzeigen";
-        }        
+        }
+        this.ausgewaehlterMitarbeiter = neuerAuftrag.getTransporter().getFahrer();
+        this.ausgewaehltesFahrzeug = neuerAuftrag.getTransporter();
+        this.auftragNr = neuerAuftrag.getId();
+        return "auftragErstellt";
+    }
+    
+    public String neuerAuftrag() {
+        
         this.aktuellePakete = null;
         this.ausgewaehlterMitarbeiter = null;
         this.ausgewaehltesFahrzeug = null;
         this.paketContainer = null;
-        return "auftragAnzeigen";
+        return "auftragErstellen";
     }
     
     public List<Transportfahrzeug> leseAlleFahrzeuge(){
@@ -117,49 +126,43 @@ public class AuftragServiceModel implements Serializable {
         p.setBreiteInM(this.neuesPaketBreiteInM);
         p.setHoeheInM(this.neuesPaketHoeheInM);
         p.setLaengeInM(this.neuesPaketLaengeInM);
+        p.setPfuschNummer(++aktuellePfuschNummer);
         this.aktuellePakete.add(p);
         return "auftragErstellen";
-//        p = auftragService.erstellePaket(p);
-//        if (p != null) {
-//            if (this.aktuellePakete == null) this.aktuellePakete = new ArrayList<Paket>();
-//            
-//            System.out.println("neues paket " + p.toString());
-//            return "auftragErstellen";
-//        } else {
-//            logger.log(Level.INFO, "Paket wurde nicht erstellt!");
-//            return "auftragErstellen";
-//        }
     }
     
     public String erstelleTestPakete(){
         if(this.aktuellePakete == null) this.aktuellePakete = new ArrayList<Paket>();
-        this.aktuellePakete.addAll(auftragService.erstelleTestPakete());
-        init();
+        this.aktuellePakete.addAll(auftragService.erstelleTestPakete(aktuellePfuschNummer));
         return "auftragErstellen";
     }
     
     public String packePakete(){
         this.paketContainer = this.auftragService.packePakete(this.aktuellePakete);
-        System.out.println("erstellte Container");
-        for (PaketContainer pC : this.paketContainer) {
-            System.out.println(pC);
-        }
         for (PaketContainer pC : this.paketContainer) {
             try {
-                this.aktuellePakete.removeAll(pC.getPakete());
+                
+                for (int i = 0; i< aktuellePakete.size();i++) {
+                    for (Paket s : pC.getPakete()) {
+                        if (aktuellePakete.get(i).getPfuschNummer() == s.getPfuschNummer()) {
+                            aktuellePakete.remove(i);
+                            
+                        }
+                    }
+                }
             } catch (Exception e) {
                 logger.log(Level.INFO, e.toString());
             }
-        }        
+        }
         return "auftragErstellen";
     }
     
     public String erstellePaketContainer(){
         this.neuerContainer = new PaketContainer();
-        this.neuerContainer.setMaxGewichtInKg(containerMaxGewichtInKg);
-        this.neuerContainer.setBreiteInM(containerBreiteInM);
-        this.neuerContainer.setHoeheInM(containerHoeheInM);
-        this.neuerContainer.setLaengeInM(containerLaengeInM);
+        this.neuerContainer.setMaxGewichtInKg(250);
+        this.neuerContainer.setBreiteInM(1);
+        this.neuerContainer.setHoeheInM(1);
+        this.neuerContainer.setLaengeInM(1);
         this.neuerContainer.setAktuellesGewichtInKg(0.0);
         this.neuerContainer = this.auftragService.erstellePaketContainer(neuerContainer);
         if (this.neuerContainer != null) {
@@ -168,22 +171,7 @@ public class AuftragServiceModel implements Serializable {
         } else {
             return "container_eintrag_nio";
         }
-    }
-    
-    
-    @PostConstruct
-    public void init(){
-        this.ausgewaehltesFahrzeug = this.tpfs.findeGroesstesVerfuegbares();
-        this.maxVolumen = this.ausgewaehltesFahrzeug.getLadeBreiteInM()
-                *this.ausgewaehltesFahrzeug.getLadeHoeheInM()
-                *this.ausgewaehltesFahrzeug.getLadeLaengeInM();
-        if (this.aktuellePakete == null) this.aktuellePakete = new ArrayList<Paket>();
-        if (!(this.aktuellePakete.isEmpty())) {
-            for(Paket p: this.aktuellePakete) {
-                this.aktuellesVolumen = this.aktuellesVolumen + (p.getBreiteInM()*p.getHoeheInM()*p.getLaengeInM());
-            }
-        }
-    }   
+    } 
     
     public AuftragServiceModel() {
     }
@@ -399,6 +387,15 @@ public class AuftragServiceModel implements Serializable {
     public void setAktuellesVolumen(double aktuellesVolumen) {
         this.aktuellesVolumen = aktuellesVolumen;
     }
+
+    public Long getAuftragNr() {
+        return auftragNr;
+    }
+
+    public void setAuftragNr(Long auftragNr) {
+        this.auftragNr = auftragNr;
+    }
+    
     
     
     

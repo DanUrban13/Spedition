@@ -12,7 +12,7 @@ public interface AuftragServiceIF extends Serializable {
     public Auftrag aendereAuftrag(Auftrag auftrag);
     public Auftrag loescheAuftrag(Auftrag auftrag);
     public List<Auftrag> leseAlleAuftraege();
-    public List<Paket> erstelleTestPakete();
+    public List<Paket> erstelleTestPakete(int nr);
 //    public Paket erstellePaket(Paket p);
     public List<PaketContainer> packePakete(List<Paket> pakete);
     public PaketContainer erstellePaketContainer(PaketContainer p);

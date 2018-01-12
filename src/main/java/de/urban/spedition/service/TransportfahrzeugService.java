@@ -1,6 +1,9 @@
 package de.urban.spedition.service;
 
+import de.urban.spedition.entity.Auftrag;
 import de.urban.spedition.entity.FsKlasse;
+import de.urban.spedition.entity.Paket;
+import de.urban.spedition.entity.PaketContainer;
 import de.urban.spedition.entity.Transportfahrzeug;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,15 +68,38 @@ public class TransportfahrzeugService implements TransportfahrzeugServiceIF {
     }
 
     @Override
-    public Transportfahrzeug findeGroesstesVerfuegbares() {
+    public Transportfahrzeug findeVerfuegbaresFahrzeug(double volumen) {
+        // Alle Fahrzeuge auslesen
         List<Transportfahrzeug> alleT = new ArrayList<Transportfahrzeug>();
         TypedQuery<Transportfahrzeug> query = em.createNamedQuery("Transportfahrzeug.alle", Transportfahrzeug.class);
         if (query != null) alleT = query.getResultList();
+        
+        
         Transportfahrzeug res = new Transportfahrzeug();
         for (Transportfahrzeug i : alleT) {
-            double volume = i.getLadeBreiteInM()*i.getLadeHoeheInM()*i.getLadeLaengeInM();
-            double resVolume = res.getLadeBreiteInM()*res.getLadeHoeheInM()*res.getLadeLaengeInM();
-            if(volume>resVolume && i.getAktuellerAuftrag()==null) res = i;
+            // berechne aktuelles Ladevolumen
+            double aktuellesLadevolumen = 0;
+            for (Auftrag a: i.getAktuelleAuftraege()) {
+                for (PaketContainer p : a.getContainer()) {
+                    aktuellesLadevolumen = aktuellesLadevolumen + 1.0;
+                }
+                for (Paket p : a.getIndividualPakete()) {
+                    aktuellesLadevolumen = aktuellesLadevolumen + 
+                            p.getBreiteInM()*p.getHoeheInM()*p.getLaengeInM();
+                }
+            }
+            
+            // waehle Fahrzeug welches schon eine Ladung hat
+            if (aktuellesLadevolumen != 0) {
+                double maxLadeVolumen = i.getLadeBreiteInM()*i.getLadeHoeheInM()*i.getLadeLaengeInM();
+                // fuellgrad max 80 Prozent
+                if ((maxLadeVolumen-aktuellesLadevolumen-volumen)>(maxLadeVolumen*0.2)) {
+                    res = i;
+                    return res;
+                }
+            } else {
+                res = i;
+            }
         }
         return res;
     }

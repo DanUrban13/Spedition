@@ -7,53 +7,36 @@
         </ui:define>
         <ui:define name="auftrcontent">            
             
-            <h1>Erstelle neuen Auftrag</h1>
+            <h1>Auftrag Erstellt</h1>
             
                 <h1>Generelle Informationen</h1>
                 <h:form>
-                    <h:panelGrid columns="4">      
-                        <h:outputLabel value="BestellNr"/>
-                        <h:inputText value="#{auftragServiceModel.auftragBestellNr}"/>
-                        <h:outputLabel value="Auftraggeber"/>
-                        <h:inputText value="#{auftragServiceModel.auftragName}"/>
-                        <h:outputLabel value="Straße"/>
-                        <h:inputText value="#{auftragServiceModel.auftragStrasse}"/>
-                        <h:outputLabel value="PLZ"/>
-                        <h:inputText value="#{auftragServiceModel.auftragPLZ}"/>
-                        <h:outputLabel value="Ort"/>
-                        <h:inputText value="#{auftragServiceModel.auftragOrt}"/>
+                    <h:panelGrid columns="4">
+                        <h:column>
+                            <h:outputLabel value="Auftragsnummer"/>
+                            <h:outputLabel value="#{auftragServiceModel.auftragBestellNr}"/>
+                            <h:outputLabel value="BestellNr"/>
+                            <h:outputLabel value="#{auftragServiceModel.auftragBestellNr}"/>
+                            <h:outputLabel value="Fahrer"/>
+                            <h:outputLabel value="#{auftragServiceModel.ausgewaehlterMitarbeiter.vorname} #{auftragServiceModel.ausgewaehlterMitarbeiter.name}"/>
+                            <h:outputLabel value="Fahrzeug"/>
+                            <h:outputLabel value="#{auftragServiceModel.ausgewaehltesFahrzeug.kennzeichen}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputLabel value="Auftraggeber"/>
+                            <h:outputLabel value="#{auftragServiceModel.auftragName}"/>
+                            <h:outputLabel value="Straße"/>
+                            <h:outputLabel value="#{auftragServiceModel.auftragStrasse}"/>
+                        </h:column>
+                        <h:column>
+                            <h:outputLabel value="PLZ"/>
+                            <h:outputLabel value="#{auftragServiceModel.auftragPLZ}"/>
+                            <h:outputLabel value="Ort"/>
+                            <h:outputLabel value="#{auftragServiceModel.auftragOrt}"/>
+                        </h:column>
                     </h:panelGrid>
-                    <h:commandButton value="Weiter" action="#{auftragServiceModel.erstelleAufrag()}"/>
+                    <h:commandButton value="Weiteren eintragen" action="#{auftragServiceModel.neuerAuftrag()}"/>
                 </h:form>
-                
-                <h1>Erstelle Pakete für Auftrag</h1>
-                <h:panelGrid columns="3">
-                    <h:column>
-                        <h:form>
-                            <h:commandButton value="Erstelle Paket" action="erstellePaket"/>
-                        </h:form>
-
-                        <h:form>
-                            <h:commandButton value="Generiere Pakete" action="#{auftragServiceModel.erstelleTestPakete()}"/>
-                        </h:form>
-
-                        <h:form>
-                            <h:commandButton value="Packe Pakete in Container" action="#{auftragServiceModel.packePakete()}"/>
-                        </h:form>
-                    </h:column>
-                    <h:column>
-                        <h:outputLabel value="Max mögliches Volumen:"/>
-                        <h:outputText value="#{auftragServiceModel.maxVolumen}">
-                            <f:convertNumber groupingUsed="true" minFractionDigits="1" />
-                        </h:outputText>
-                    </h:column>
-                    <h:column>
-                        <h:outputLabel value="Aktuelles Volumen"/>
-                        <h:outputText value="#{auftragServiceModel.aktuellesVolumen}">
-                            <f:convertNumber groupingUsed="true" minFractionDigits="1" />
-                        </h:outputText>
-                    </h:column>
-                </h:panelGrid>
 
                 <h:panelGrid columns="2">
                     <h:column>

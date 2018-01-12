@@ -4,7 +4,9 @@ import de.urban.spedition.entity.util.GeneratedIdEntity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -12,6 +14,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @XmlRootElement
@@ -24,13 +28,14 @@ public class Auftrag extends GeneratedIdEntity{
     
     private long bestellNr;
     private Date lieferDatum;
-    @ManyToOne
+    
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Lieferadresse ziel;
-    @OneToMany(mappedBy="auftrag")
+    @OneToMany(mappedBy="auftrag", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<PaketContainer> container;
-//    @Fetch(FetchMode.SUBSELECT)
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Paket> individualPakete;
     @ManyToOne
     private Transportfahrzeug transporter;
@@ -102,7 +107,7 @@ public class Auftrag extends GeneratedIdEntity{
 
     @Override
     public String toString() {
-        return "Auftrag{" + "bestellNr=" + bestellNr + ", lieferDatum=" + lieferDatum + ", ziel=" + ziel + ", container=" + container + ", individualPakete=" + individualPakete + ", transporter=" + transporter + '}';
+        return "Auftrag{" + "bestellNr=" + bestellNr + ", lieferDatum=" + lieferDatum + ", ziel=" + ziel + ", transporter=" + transporter + '}';
     }
     
     

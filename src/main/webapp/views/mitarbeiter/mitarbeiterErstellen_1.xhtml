@@ -1,0 +1,35 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            template="/WEB-INF/persTemplate.xhtml"
+            xmlns:h="http://xmlns.jcp.org/jsf/html"
+            xmlns:f="http://xmlns.jcp.org/jsf/core">
+        <ui:define name="maintop">
+            Personalmanagement
+        </ui:define>
+        <ui:define name="perscontent">            
+            
+            <h1>Erstelle neuen Mitarbeiter</h1>
+            <h1>Führerscheinklassen eintragen</h1>
+            <h:form>
+                <h:commandButton value="hinzufuegen" action="klasseHinzufuegen"/>
+            </h:form>
+            <h:form>
+                <h:commandButton value="zurück" action="mitarbeiterErstellen"/>
+            </h:form>
+            <h:form>
+                <h:commandButton value="fertig" action="#{personalmgmtModel.neuerMitarbeiter()}"/>
+            </h:form>
+            
+            <h:dataTable var="fsklasse" value="#{personalmgmtModel.fsKlassen}">
+                <h:column>    				
+                    <f:facet name="header">FsKlasse</f:facet>  
+                    #{fsklasse.fsKlasse}
+                </h:column>
+
+                <h:column>    				
+                    <f:facet name="header">Beschreibung</f:facet>  
+                    #{fsklasse.beschreibung}
+                </h:column>
+            </h:dataTable>
+
+        </ui:define>
+    </ui:composition>

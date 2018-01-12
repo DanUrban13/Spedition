@@ -79,7 +79,7 @@ public class FsKlasse extends GeneratedIdEntity{
 
     @Override
     public String toString() {
-        return "FsKlasse{" + "fsKlasse=" + fsName + ", beschreibung=" + beschreibung + '}';
+        return "FsKlasse{" + "fsKlasse=" + fsName + '}';
     }
     
     

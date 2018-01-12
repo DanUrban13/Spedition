@@ -30,6 +30,14 @@
                         <f:facet name="header">Container</f:facet>  
                         #{auftrag.container.size()}
                     </h:column>
+                    <h:column>    				
+                        <f:facet name="header">Fahrzeug</f:facet>  
+                        #{auftrag.transporter.kennzeichen}
+                    </h:column>
+                    <h:column>    				
+                        <f:facet name="header">Fahrer</f:facet>  
+                        #{auftrag.transporter.fahrer.vorname} #{auftrag.transporter.fahrer.name}
+                    </h:column>
                 </h:dataTable>
         </ui:define>
     </ui:composition>
