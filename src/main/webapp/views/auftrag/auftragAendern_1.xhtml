@@ -1,0 +1,38 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            template="/WEB-INF/auftrTemplate.xhtml"
+            xmlns:h="http://xmlns.jcp.org/jsf/html"
+            xmlns:f="http://xmlns.jcp.org/jsf/core">
+        <ui:define name="maintop">
+            Auftragsmanagement
+        </ui:define>
+        <ui:define name="auftrcontent">            
+            <h1>Ändere Auftrag</h1>
+            <p>
+                <h1>Generelle Informationen</h1>
+            </p>
+            <h:panelGrid columns="2">
+                <h:column>
+                    <h:form>
+                        <h:panelGrid columns="4">
+                            <h:outputLabel value="Auftraggeber"/>
+                            <h:inputText value="#{auftragServiceModel.ausgewaehlterAuftrag.ziel.lieferName}"/>
+                            <h:outputLabel value="Straße"/>
+                            <h:inputText value="#{auftragServiceModel.ausgewaehlterAuftrag.ziel.adresse.strasse}"/>
+                            <h:outputLabel value="PLZ"/>
+                            <h:inputText value="#{auftragServiceModel.ausgewaehlterAuftrag.ziel.adresse.plz}"/>
+                            <h:outputLabel value="Ort"/>
+                            <h:inputText value="#{auftragServiceModel.ausgewaehlterAuftrag.ziel.adresse.ort}"/>
+                            <h:outputLabel value="Liefertag"/>
+                            <h:inputText value="#{auftragServiceModel.lieferTag}"/>
+                            <h:outputLabel value="Liefermonat"/>
+                            <h:inputText value="#{auftragServiceModel.lieferMonat}"/>
+                            <h:outputLabel value="Lieferjahr"/>
+                            <h:inputText value="#{auftragServiceModel.lieferJahr}"/>
+                        </h:panelGrid>
+                        <h:commandButton value="zurück" action="auftragAendern"/>
+                        <h:commandButton value="Auftrag ändern" action="#{auftragServiceModel.aendereAuftrag()}"/>
+                    </h:form>
+                </h:column>
+            </h:panelGrid>
+        </ui:define>
+    </ui:composition>

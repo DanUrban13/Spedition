@@ -88,6 +88,15 @@
             <to-view-id>/views/auftrag/auftragAnzeigen.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>auftragAendern</from-outcome>
+            <to-view-id>/views/auftrag/auftragAendern.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>auftragAendern_1</from-outcome>
+            <to-view-id>/views/auftrag/auftragAendern_1.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
             <from-outcome>auftragErstellt</from-outcome>
             <to-view-id>/views/auftrag/auftragErstellt.xhtml</to-view-id>
         </navigation-case>

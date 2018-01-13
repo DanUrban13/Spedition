@@ -68,6 +68,9 @@ public class AuftragServiceModel implements Serializable {
     private String auftragOrt;
     private Long auftragNr;
     private Auftrag ausgewaehlterAuftrag;
+    private int lieferTag;
+    private int lieferMonat;
+    private int lieferJahr;
     
     private double neuesPaketGewichtInKg;
     private double neuesPaketLaengeInM;
@@ -113,7 +116,6 @@ public class AuftragServiceModel implements Serializable {
     }
     
     public String neuerAuftrag() {
-        
         this.aktuellePakete = null;
         this.ausgewaehlterMitarbeiter = null;
         this.ausgewaehltesFahrzeug = null;
@@ -121,6 +123,12 @@ public class AuftragServiceModel implements Serializable {
         return "auftragErstellen";
     }
     
+    public String aendereAuftrag(){
+        ausgewaehlterAuftrag.setLieferDatum(new Date(lieferJahr-1900, lieferMonat-1, lieferTag));
+        auftragService.aendereAuftrag(ausgewaehlterAuftrag);
+        return "auftragAnzeigen";
+    }
+        
     public String loescheAuftrag(){
         this.auftragService.loescheAuftrag(ausgewaehlterAuftrag);
         return "auftragAnzeigen";
@@ -424,6 +432,30 @@ public class AuftragServiceModel implements Serializable {
 
     public void setAuftragConverter(AuftragConverter auftragConverter) {
         this.auftragConverter = auftragConverter;
+    }
+
+    public int getLieferTag() {
+        return lieferTag;
+    }
+
+    public void setLieferTag(int lieferTag) {
+        this.lieferTag = lieferTag;
+    }
+
+    public int getLieferMonat() {
+        return lieferMonat;
+    }
+
+    public void setLieferMonat(int lieferMonat) {
+        this.lieferMonat = lieferMonat;
+    }
+
+    public int getLieferJahr() {
+        return lieferJahr;
+    }
+
+    public void setLieferJahr(int lieferJahr) {
+        this.lieferJahr = lieferJahr;
     }
     
     

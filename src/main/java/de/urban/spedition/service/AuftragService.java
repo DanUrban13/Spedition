@@ -160,9 +160,15 @@ public class AuftragService implements AuftragServiceIF {
 
     
     @WebMethod(exclude=true)
+    @Transactional
     @Override
     public Auftrag aendereAuftrag(Auftrag auftrag) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println(auftrag.toString());
+        Auftrag auftragO = em.find(Auftrag.class, auftrag.getId());
+        auftragO.setLieferDatum(auftrag.getLieferDatum());
+        auftragO.setZiel(em.merge(auftrag.getZiel()));
+        em.merge(auftragO);
+        return auftragO;
     }
 
     @WebMethod(exclude=true)

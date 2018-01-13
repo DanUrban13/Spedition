@@ -30,7 +30,7 @@ public class Auftrag extends GeneratedIdEntity{
     private long bestellNr;
     private Date lieferDatum;
     
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Lieferadresse ziel;
     @OneToMany(mappedBy="auftrag", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<PaketContainer> container;
