@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PreRemove;
 
 @Entity
 @NamedQuery(
@@ -28,6 +29,13 @@ public class Transportfahrzeug extends GeneratedIdEntity{
     private double ladeBreiteInM;
     private double ladeHoeheInM;
     private int ladeGewichtInKg;
+    
+    @PreRemove
+    private void preRemove() {
+        for (Auftrag a : aktuelleAuftraege) {
+            a.setTransporter(null);
+        }
+    }
 
     public Mitarbeiter getFahrer() {
         return fahrer;

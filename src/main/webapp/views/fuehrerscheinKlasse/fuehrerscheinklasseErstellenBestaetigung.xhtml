@@ -1,5 +1,5 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-            template="/WEB-INF/mainTemplate.xhtml"
+            template="/WEB-INF/fuehTemplate.xhtml"
             xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:define name="maintop">
         Fuehrerscheinklassen
@@ -9,7 +9,7 @@
         <h1>Neue Klasse eingetragen</h1>
         <h:form>
         <h:panelGrid columns="2">
-                <h:outputLabel value="Datenbank ID: "/>
+                <h:outputLabel value="ID: "/>
                 <h:outputText value="#{fuehrerscheinKlasseModel.neueFsKlasse.id}"/>
 
                 <h:outputLabel value="Name der Klasse: "/>
@@ -17,13 +17,9 @@
 
                 <h:outputLabel value="Beschreibung: "/>
                 <h:outputText value="#{fuehrerscheinKlasseModel.neueFsKlasse.beschreibung}"/>
-
-
-
             </h:panelGrid>
 
-            <h:commandButton value="Weitere Klasse eintragen" action="fuehrerscheinMgmtNav"/>
-            <h:commandButton value="Klasse ändern" action="/index.xhtml"/> 
+            <h:commandButton value="Weitere Klasse eintragen" action="#{fuehrerscheinKlasseModel.neueKlasse()}"/>
         </h:form>
     </ui:define>
 </ui:composition>

@@ -1,0 +1,26 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            template="/WEB-INF/transTemplate.xhtml"
+            xmlns:h="http://xmlns.jcp.org/jsf/html"
+            xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="maintop">
+        Fahrzeugmanagement
+    </ui:define>
+    <ui:define name="transcontent">
+        <div>
+            <h:form>
+                <h:panelGrid columns="1">
+                        <h:outputLabel value="Fahrzeug auswählen:"/>
+                        <h:selectOneMenu value="#{transportmgmtModel.ausgewaehltesTransportfahrzeug}">
+                            <f:selectItems value="#{transportmgmtModel.leseAlleTransportfahrzeuge()}" var="fahrzeug" 
+                                           itemLabel="#{fahrzeug.kennzeichen}"/>
+                            <f:converter binding="#{transportmgmtModel.transportfahrzeugConverter}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+
+
+                <h:commandButton value="Fahrzeug löschen" action="#{transportmgmtModel.loescheTransportfahrzeug()}"/>
+            </h:form>
+        </div>
+
+    </ui:define>
+</ui:composition>

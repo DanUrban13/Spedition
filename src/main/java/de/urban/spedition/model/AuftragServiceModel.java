@@ -10,12 +10,12 @@ import de.urban.spedition.entity.Transportfahrzeug;
 import de.urban.spedition.entity.converter.AuftragConverter;
 import de.urban.spedition.entity.converter.MitarbeiterConverter;
 import de.urban.spedition.entity.converter.TransportfahrzeugConverter;
-import de.urban.spedition.exceptions.CouldNotDeleteException;
 import de.urban.spedition.service.AuftragServiceIF;
 import de.urban.spedition.service.MitarbeiterServiceIF;
 import de.urban.spedition.service.TransportfahrzeugServiceIF;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,7 +60,7 @@ public class AuftragServiceModel implements Serializable {
     private Long containerId;
     
     private String auftragName;
-    private String auftragDatum;
+    private Date auftragDatum;
     private Long auftragBestellNr;
     private String auftragStrasse;
     private String auftragHausNr;
@@ -101,6 +101,7 @@ public class AuftragServiceModel implements Serializable {
         neuerAuftrag.setZiel(l);      
         try {
             neuerAuftrag = this.auftragService.erstelleAuftrag(neuerAuftrag);
+            this.auftragDatum = neuerAuftrag.getLieferDatum();
         } catch (Exception e) {
             logger.log(Level.INFO,e.toString());
             return "auftragAnzeigen";
@@ -297,11 +298,11 @@ public class AuftragServiceModel implements Serializable {
         this.auftragName = auftragName;
     }
 
-    public String getAuftragDatum() {
+    public Date getAuftragDatum() {
         return auftragDatum;
     }
 
-    public void setAuftragDatum(String auftragDatum) {
+    public void setAuftragDatum(Date auftragDatum) {
         this.auftragDatum = auftragDatum;
     }
 

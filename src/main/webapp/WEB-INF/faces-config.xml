@@ -42,6 +42,14 @@
             <from-outcome>flottenMgmtNav</from-outcome>
             <to-view-id>/views/transport/transportfahrzeugErstellen.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>transportfahrzeugAnzeigen</from-outcome>
+            <to-view-id>/views/transport/transportfahrzeugAnzeigen.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>transportfahrzeugLoeschen</from-outcome>
+            <to-view-id>/views/transport/transportfahrzeugLoeschen.xhtml</to-view-id>
+        </navigation-case>
 
         <navigation-case>
             <from-outcome>fuehrerscheinMgmtNav</from-outcome>

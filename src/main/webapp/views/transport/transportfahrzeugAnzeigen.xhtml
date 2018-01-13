@@ -1,0 +1,47 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            template="/WEB-INF/transTemplate.xhtml"
+            xmlns:h="http://xmlns.jcp.org/jsf/html"
+            xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="maintop">
+        Fahrzeugmanagement
+    </ui:define>
+    <ui:define name="transcontent">
+        <h1>Alle Fahrzeuge</h1>
+                <h:dataTable var="fahrzeug" value="#{transportmgmtModel.leseAlleTransportfahrzeuge()}"> 
+                    <h:column>
+                        <f:facet name="header">FahrzeugNr</f:facet>  
+                        #{fahrzeug.id} 	
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Kennzeichen</f:facet>  
+                        #{fahrzeug.kennzeichen}   
+                    </h:column>
+                    <h:column>    				
+                        <f:facet name="header">Länge in M</f:facet>                         
+                        <h:outputText value="#{fahrzeug.ladeLaengeInM}">
+                            <f:convertNumber groupingUsed="true" minFractionDigits="1" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>    				
+                        <f:facet name="header">Breite in M</f:facet>                         
+                        <h:outputText value="#{fahrzeug.ladeBreiteInM}">
+                            <f:convertNumber groupingUsed="true" minFractionDigits="1" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>    				
+                        <f:facet name="header">Höhe in M</f:facet>                         
+                        <h:outputText value="#{fahrzeug.ladeHoeheInM}">
+                            <f:convertNumber groupingUsed="true" minFractionDigits="1" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>    				
+                        <f:facet name="header">Max Gewicht in Kg</f:facet>                         
+                        <h:outputText value="#{fahrzeug.ladeGewichtInKg}">
+                            <f:convertNumber groupingUsed="true" minFractionDigits="1" />
+                        </h:outputText>
+                    </h:column>
+                        
+                </h:dataTable>
+
+    </ui:define>
+</ui:composition>

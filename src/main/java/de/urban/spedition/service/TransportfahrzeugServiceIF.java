@@ -10,6 +10,7 @@ import javax.jws.WebService;
 public interface TransportfahrzeugServiceIF extends Serializable {
     public FsKlasse erstelleFuehrerscheinklasse(FsKlasse fsk);
     public Transportfahrzeug erstelleTransportfahrzeug(Transportfahrzeug neuesTpf);
+    public Transportfahrzeug loescheTransportfahrzeug(Transportfahrzeug tpf);
     public List<FsKlasse> leseAlleFsKlasse();
     public List<Transportfahrzeug> leseAlleTransportfahrzeuge();
     public FsKlasse findeFsKlasse(long id);

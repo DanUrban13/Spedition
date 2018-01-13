@@ -60,6 +60,11 @@ public class PersonalmgmtModel implements Serializable {
     public List<FsKlasse> leseAlleFsKlasse() {
         return transportfahrzeugService.leseAlleFsKlasse();
     }
+    
+    public String schrittZwei() {
+        if (fsKlassen != null) fsKlassen.clear();
+        return "mitarbeiterErstellen_1";
+    }
         
     public String neuerMitarbeiter(){
         Mitarbeiter neuerMitarbeiter = new Mitarbeiter();

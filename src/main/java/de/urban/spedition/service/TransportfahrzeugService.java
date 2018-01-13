@@ -50,9 +50,7 @@ public class TransportfahrzeugService implements TransportfahrzeugServiceIF {
     public List<Transportfahrzeug> leseAlleTransportfahrzeuge() {
         
         TypedQuery<Transportfahrzeug> query = em.createNamedQuery("Transportfahrzeug.alle", Transportfahrzeug.class);
-        if (query != null) return query.getResultList();
-        
-        return null;
+        return query.getResultList();
     }
 
     @Override
@@ -102,6 +100,14 @@ public class TransportfahrzeugService implements TransportfahrzeugServiceIF {
             }
         }
         return res;
+    }
+
+    @Transactional
+    @Override
+    public Transportfahrzeug loescheTransportfahrzeug(Transportfahrzeug tpf) {
+        tpf = em.find(Transportfahrzeug.class, tpf.getId());
+        em.remove(tpf);
+        return null;
     }
     
     

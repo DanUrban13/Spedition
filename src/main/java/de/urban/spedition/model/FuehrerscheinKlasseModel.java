@@ -22,13 +22,14 @@ public class FuehrerscheinKlasseModel implements Serializable {
     private String fsKlasseName;
     private String fsKlasseBeschreibung;
     private FsKlasse neueFsKlasse;
-
-    public FuehrerscheinKlasseModel() {
+    
+    public String neueKlasse() {
+        fsKlasseName = "";
+        fsKlasseBeschreibung = "";
+        return "fuehrerscheinKlasseErstellen";
     }
 
-    public FuehrerscheinKlasseModel(String fsKlasseName, String fsKlasseBeschreibung) {
-        this.fsKlasseName = fsKlasseName;
-        this.fsKlasseBeschreibung = fsKlasseBeschreibung;
+    public FuehrerscheinKlasseModel() {
     }
 
     public String getFsKlasseName() {

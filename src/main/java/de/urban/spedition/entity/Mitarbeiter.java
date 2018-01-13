@@ -25,18 +25,10 @@ public class Mitarbeiter extends GeneratedIdEntity{
     private List<FsKlasse> fuehrerscheinklassen;
     private String name;
     private String vorname;
-    private double gehalt;
     private Date eintrittsDatum;
     private Date geburtsDatum;
 
     public Mitarbeiter() {
-    }
-
-    public Mitarbeiter(String name, String vorname, double gehalt, Date geburtsDatum) {
-        this.name = name;
-        this.vorname = vorname;
-        this.gehalt = gehalt;
-        this.geburtsDatum = geburtsDatum;
     }
     
     public Transportfahrzeug getFahrzeug() {
@@ -71,14 +63,6 @@ public class Mitarbeiter extends GeneratedIdEntity{
         this.vorname = vorname;
     }
 
-    public double getGehalt() {
-        return gehalt;
-    }
-
-    public void setGehalt(double gehalt) {
-        this.gehalt = gehalt;
-    }
-
     public Date getEintrittsDatum() {
         return eintrittsDatum;
     }
@@ -105,7 +89,7 @@ public class Mitarbeiter extends GeneratedIdEntity{
 
     @Override
     public String toString() {
-        return "Mitarbeiter{" + "fahrzeug=" + fahrzeug + ", fuehrerscheinklassen=" + fuehrerscheinklassen + ", name=" + name + ", vorname=" + vorname + ", gehalt=" + gehalt + ", eintrittsDatum=" + eintrittsDatum + ", geburtsDatum=" + geburtsDatum + '}';
+        return "Mitarbeiter{" + "fahrzeug=" + fahrzeug + ", fuehrerscheinklassen=" + fuehrerscheinklassen + ", name=" + name + ", vorname=" + vorname +  ", eintrittsDatum=" + eintrittsDatum + ", geburtsDatum=" + geburtsDatum + '}';
     }
    
     

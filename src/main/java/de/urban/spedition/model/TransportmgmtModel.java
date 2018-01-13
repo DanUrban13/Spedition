@@ -5,6 +5,7 @@ import de.urban.spedition.entity.FsKlasse;
 import de.urban.spedition.entity.Mitarbeiter;
 import de.urban.spedition.entity.Transportfahrzeug;
 import de.urban.spedition.entity.converter.FsKlasseConverter;
+import de.urban.spedition.entity.converter.TransportfahrzeugConverter;
 import de.urban.spedition.service.TransportfahrzeugServiceIF;
 import java.io.Serializable;
 import java.util.Date;
@@ -21,6 +22,9 @@ public class TransportmgmtModel implements Serializable {
     
     @Inject
     private TransportfahrzeugServiceIF transportfahrzeugService;
+    
+    @Inject 
+    private TransportfahrzeugConverter transportfahrzeugConverter;
     
     @Inject
     private FsKlasseConverter fsKlasseConverter;
@@ -39,6 +43,8 @@ public class TransportmgmtModel implements Serializable {
     private double ladeHoeheInM;
     private int ladeGewichtInKg;
     
+    private Transportfahrzeug ausgewaehltesTransportfahrzeug;
+    
     public TransportmgmtModel() {
     }
     
@@ -46,7 +52,7 @@ public class TransportmgmtModel implements Serializable {
         return transportfahrzeugService.leseAlleFsKlasse();
     }
     
-    public void neuesTransportfahrzeug(){
+    public String neuesTransportfahrzeug(){
         Transportfahrzeug neuesTpf = new Transportfahrzeug();
         neuesTpf.setFsBenoetigt(this.fsBenoetigt);
         neuesTpf.setKennzeichen(this.kennzeichen);
@@ -54,8 +60,15 @@ public class TransportmgmtModel implements Serializable {
         neuesTpf.setLadeGewichtInKg(this.ladeGewichtInKg);
         neuesTpf.setLadeHoeheInM(this.ladeHoeheInM);
         neuesTpf.setLadeLaengeInM(this.ladeLaengeInM);
-        System.out.println("test");
         transportfahrzeugService.erstelleTransportfahrzeug(neuesTpf);
+        return "transportfahrzeugAnzeigen";
+    }
+    
+    public String loescheTransportfahrzeug() {
+        if (transportfahrzeugService.loescheTransportfahrzeug(ausgewaehltesTransportfahrzeug) == null) {
+            return "transportfahrzeugAnzeigen";
+        }
+        return "transportfahrzeugAnzeigen";       
     }
     
     public List<Transportfahrzeug> leseAlleTransportfahrzeuge(){
@@ -132,6 +145,22 @@ public class TransportmgmtModel implements Serializable {
 
     public void setFsKlasseConverter(FsKlasseConverter fsKlasseConverter) {
         this.fsKlasseConverter = fsKlasseConverter;
+    }
+
+    public Transportfahrzeug getAusgewaehltesTransportfahrzeug() {
+        return ausgewaehltesTransportfahrzeug;
+    }
+
+    public void setAusgewaehltesTransportfahrzeug(Transportfahrzeug ausgewaehltesTransportfahrzeug) {
+        this.ausgewaehltesTransportfahrzeug = ausgewaehltesTransportfahrzeug;
+    }
+
+    public TransportfahrzeugConverter getTransportfahrzeugConverter() {
+        return transportfahrzeugConverter;
+    }
+
+    public void setTransportfahrzeugConverter(TransportfahrzeugConverter transportfahrzeugConverter) {
+        this.transportfahrzeugConverter = transportfahrzeugConverter;
     }
 
 

@@ -46,7 +46,6 @@ public class AuftragService implements AuftragServiceIF {
     @Transactional
     @Override
     public Auftrag erstelleAuftrag(@WebParam(name = "neuerAuftrag") Auftrag neuerAuftrag) {
-        System.out.println("service erstelle Auftrag");
         // wenn von aussen - noch keine Container verwendet
         if (neuerAuftrag.getContainer().isEmpty()) packePakete(neuerAuftrag.getIndividualPakete());
         // berechne Aufrag Volumen
@@ -84,6 +83,8 @@ public class AuftragService implements AuftragServiceIF {
         
         // berechne Lieferdatum aufgrund der Auftraege des Transportfahrzeuges
         Date lieferdatum = new Date();
+        // garantierte lieferzeit sind 5 tage
+        lieferdatum.setDate(lieferdatum.getDate()+5);
         for (Auftrag a : tf.getAktuelleAuftraege()){
             if (a.getLieferDatum().before(lieferdatum)) lieferdatum = a.getLieferDatum();
         }        

@@ -28,17 +28,16 @@
 
                     <h:column>    				
                         <f:facet name="header">Geburtsdatum</f:facet>  
-                        #{mitarbeiter.geburtsDatum}
+                        <h:outputText value="#{mitarbeiter.geburtsDatum}">
+                            <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+                        </h:outputText> 
                     </h:column>
                     <h:column>    				
                         <f:facet name="header">Eintrittsdatum</f:facet>  
-                        #{mitarbeiter.eintrittsDatum}
+                        <h:outputText value="#{mitarbeiter.eintrittsDatum}">
+                            <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+                         </h:outputText>                         
                     </h:column>
-                    <h:column>    				
-                        <f:facet name="header">Gehalt</f:facet>  
-                        #{mitarbeiter.gehalt}
-                    </h:column>
-
                 </h:dataTable>
 
             </h:form>
