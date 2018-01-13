@@ -66,6 +66,7 @@ public class Auftrag extends GeneratedIdEntity{
     }
 
     public List<PaketContainer> getContainer() {
+        if (container == null) container = new ArrayList<PaketContainer>();
         return container;
     }
 
