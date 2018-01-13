@@ -3,11 +3,16 @@ package de.urban.spedition.entity;
 import de.urban.spedition.entity.util.GeneratedIdEntity;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
+@NamedQuery(
+        name="Paket.container",
+        query="SELECT p FROM Paket AS p WHERE p.container.id =:c"
+)
 public class Paket extends GeneratedIdEntity{
     @ManyToOne
     private PaketContainer container;

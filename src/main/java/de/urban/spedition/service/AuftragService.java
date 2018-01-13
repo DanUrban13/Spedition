@@ -1,5 +1,6 @@
 package de.urban.spedition.service;
 
+import de.urban.spedition.DTO.TBestellung;
 import de.urban.spedition.entity.Auftrag;
 import de.urban.spedition.entity.FsKlasse;
 import de.urban.spedition.entity.Mitarbeiter;
@@ -21,7 +22,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
-import org.hibernate.Hibernate;
 
 @RequestScoped
 @WebService
@@ -46,53 +46,65 @@ public class AuftragService implements AuftragServiceIF {
     @Transactional
     @Override
     public Auftrag erstelleAuftrag(@WebParam(name = "neuerAuftrag") Auftrag neuerAuftrag) {
-            // wenn von aussen - noch keine Container verwendet
-            if (neuerAuftrag.getContainer().isEmpty()) packePakete(neuerAuftrag.getIndividualPakete());
-            // berechne Aufrag Volumen
-            double volumen = 0;
-            for (PaketContainer p : neuerAuftrag.getContainer()) {
-                volumen = volumen + 1.0;
-            }
-            for (Paket p : neuerAuftrag.getIndividualPakete()) {
-                volumen = volumen + 
-                        p.getBreiteInM()*p.getHoeheInM()*p.getLaengeInM();
-            }
-            // finde Fahrzeug in welches der Auftrag passt
-            Transportfahrzeug tf = new Transportfahrzeug();
-            tf = tfS.findeVerfuegbaresFahrzeug(volumen);
-            // finde Mitarbeiter welcher Fahrzeug bedienen kann
-            // wenn fahrzeug noch keinen Mitarbeiter zugewiesen hat
-            if (tf.getFahrer() == null) {
-                for (Mitarbeiter m : mS.leseAlleMitarbeiter()){
-                    for (FsKlasse fs : m.getFuehrerscheinklassen()){
-                        if(fs.getFsKlasse().equalsIgnoreCase(tf.getFsBenoetigt().getFsKlasse())) {
-                            tf.setFahrer(m);
-                            break;
-                        }
+        System.out.println("service erstelle Auftrag");
+        // wenn von aussen - noch keine Container verwendet
+        if (neuerAuftrag.getContainer().isEmpty()) packePakete(neuerAuftrag.getIndividualPakete());
+        // berechne Aufrag Volumen
+        double volumen = 0;
+        for (PaketContainer p : neuerAuftrag.getContainer()) {
+            volumen = volumen + 1.0;
+        }
+        for (Paket p : neuerAuftrag.getIndividualPakete()) {
+            volumen = volumen + 
+                    p.getBreiteInM()*p.getHoeheInM()*p.getLaengeInM();
+        }
+        // finde Fahrzeug in welches der Auftrag passt
+        Transportfahrzeug tf = new Transportfahrzeug();
+        tf = tfS.findeVerfuegbaresFahrzeug(volumen);
+        // finde Mitarbeiter welcher Fahrzeug bedienen kann
+        // wenn fahrzeug noch keinen Mitarbeiter zugewiesen hat
+        if (tf.getFahrer() == null) {
+            for (Mitarbeiter m : mS.leseAlleMitarbeiter()){
+                for (FsKlasse fs : m.getFuehrerscheinklassen()){
+                    if(fs.getId() == tf.getFsBenoetigt().getId()) {
+                        tf.setFahrer(m);
+                        break;
                     }
-                    if (tf.getFsBenoetigt().getFsKlasse() != null) break;
                 }
+                if (tf.getFahrer() != null) break;
             }
-            
-            neuerAuftrag.setZiel(em.merge(neuerAuftrag.getZiel()));
-            for (Paket p : neuerAuftrag.getIndividualPakete()) {
+        }
+        
+        neuerAuftrag.setZiel(em.merge(neuerAuftrag.getZiel()));
+        for (Paket p : neuerAuftrag.getIndividualPakete()) {
+            em.persist(p);
+        }
+
+        neuerAuftrag.setTransporter(em.merge(tf));
+        
+        // berechne Lieferdatum aufgrund der Auftraege des Transportfahrzeuges
+        Date lieferdatum = new Date();
+        for (Auftrag a : tf.getAktuelleAuftraege()){
+            if (a.getLieferDatum().before(lieferdatum)) lieferdatum = a.getLieferDatum();
+        }        
+        
+        neuerAuftrag.setLieferDatum(lieferdatum);
+                
+        em.persist(neuerAuftrag);
+        
+        for (PaketContainer pC : neuerAuftrag.getContainer()) {
+            pC.setAuftrag(neuerAuftrag);
+            for (Paket p: pC.getPakete()) {
+                p.setContainer(pC);
                 em.persist(p);
             }
+            em.merge(pC);
+        }
+        
+        TBestellung b = bestellService.lieferdatumPublizieren(neuerAuftrag.getBestellNr(), neuerAuftrag.getLieferDatum());
+        
+        if (b.getbA() == null) logger.log(Level.INFO, "webshop brachte null als return");
 
-            neuerAuftrag.setTransporter(em.merge(tf));
-            
-            neuerAuftrag.setLieferDatum(new Date());
-            em.persist(neuerAuftrag);
-            for (PaketContainer pC : neuerAuftrag.getContainer()) {
-                pC.setAuftrag(neuerAuftrag);
-                em.merge(pC);
-                for (Paket p: pC.getPakete()) {
-                    p.setContainer(pC);
-                    em.persist(p);
-                }
-            }
-            
-        String message = "Auftrag Erstellung eingegangen. Auftrag";
         return neuerAuftrag;
     }
     
@@ -141,8 +153,8 @@ public class AuftragService implements AuftragServiceIF {
 
     @WebMethod
     @Override
-    public Auftrag findeAuftrag(Auftrag auftrag) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Auftrag findeAuftrag(long id) {
+        return em.find(Auftrag.class, id);
     }
 
     
@@ -153,9 +165,28 @@ public class AuftragService implements AuftragServiceIF {
     }
 
     @WebMethod(exclude=true)
+    @Transactional
     @Override
     public Auftrag loescheAuftrag(Auftrag auftrag) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (PaketContainer pC : auftrag.getContainer()) {
+            pC.setAuftrag(null);
+            TypedQuery<Paket> query = em.createNamedQuery("Paket.container", Paket.class);
+            long param = 0;
+            param = pC.getId();
+            query.setParameter("c", param);
+            List<Paket> pList = query.getResultList();
+            for (Paket p : pList) {
+                if (p != null){
+                    p = em.find(Paket.class, p.getId());
+                    em.remove(p);
+                }
+            }
+            pC.setPakete(null);
+            em.merge(pC);
+        }
+        auftrag = em.merge(auftrag);
+        em.remove(auftrag);
+        return null;
     }
 
     @WebMethod(exclude=true)
@@ -213,12 +244,5 @@ public class AuftragService implements AuftragServiceIF {
         TypedQuery<Auftrag> query = em.createNamedQuery("Auftrag.alle", Auftrag.class);
         res = query.getResultList();
         return res;
-    }
-    
-    
-    
-    
-      
-
-    
+    }    
 }

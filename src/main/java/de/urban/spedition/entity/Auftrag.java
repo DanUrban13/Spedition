@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -34,7 +35,7 @@ public class Auftrag extends GeneratedIdEntity{
     @OneToMany(mappedBy="auftrag", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<PaketContainer> container;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Paket> individualPakete;
     @ManyToOne

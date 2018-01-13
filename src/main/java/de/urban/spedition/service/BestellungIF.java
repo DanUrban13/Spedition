@@ -13,5 +13,5 @@ import java.util.Date;
  * @author Dan
  */
 public interface BestellungIF {
-    public TBestellung lieferdatumPublizieren(String bestellNr, Date lieferdatum);
+    public TBestellung lieferdatumPublizieren(long bestellNr, Date lieferdatum);
 }

@@ -16,7 +16,7 @@ import javax.persistence.OneToMany;
         query="SELECT p FROM PaketContainer AS p "
 )
 public class PaketContainer extends GeneratedIdEntity{
-    @OneToMany(mappedBy="container",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="container",fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<Paket> pakete;
     @ManyToOne
     private Auftrag auftrag;

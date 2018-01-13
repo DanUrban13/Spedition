@@ -1,11 +1,13 @@
 
 package de.urban.spedition.DTO;
 
+import de.karatay.webshop.service.Bestellung;
 import java.util.Date;
 
 public class TBestellung {
     private long bestellNr;
     private Date lieferdatum;
+    private Bestellung bA;
     
     private boolean bestellungAbgeschlossen;
 
@@ -31,6 +33,14 @@ public class TBestellung {
 
     public void setBestellungAbgeschlossen(boolean bestellungAbgeschlossen) {
         this.bestellungAbgeschlossen = bestellungAbgeschlossen;
+    }
+
+    public Bestellung getbA() {
+        return bA;
+    }
+
+    public void setbA(Bestellung bA) {
+        this.bA = bA;
     }
 
     @Override

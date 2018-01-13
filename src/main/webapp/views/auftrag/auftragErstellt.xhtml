@@ -9,84 +9,29 @@
             
             <h1>Auftrag Erstellt</h1>
             
+            <p>
                 <h1>Generelle Informationen</h1>
-                <h:form>
-                    <h:panelGrid columns="4">
-                        <h:column>
-                            <h:outputLabel value="Auftragsnummer"/>
-                            <h:outputLabel value="#{auftragServiceModel.auftragBestellNr}"/>
-                            <h:outputLabel value="BestellNr"/>
-                            <h:outputLabel value="#{auftragServiceModel.auftragBestellNr}"/>
-                            <h:outputLabel value="Fahrer"/>
-                            <h:outputLabel value="#{auftragServiceModel.ausgewaehlterMitarbeiter.vorname} #{auftragServiceModel.ausgewaehlterMitarbeiter.name}"/>
-                            <h:outputLabel value="Fahrzeug"/>
-                            <h:outputLabel value="#{auftragServiceModel.ausgewaehltesFahrzeug.kennzeichen}"/>
-                        </h:column>
-                        <h:column>
-                            <h:outputLabel value="Auftraggeber"/>
-                            <h:outputLabel value="#{auftragServiceModel.auftragName}"/>
-                            <h:outputLabel value="Straße"/>
-                            <h:outputLabel value="#{auftragServiceModel.auftragStrasse}"/>
-                        </h:column>
-                        <h:column>
-                            <h:outputLabel value="PLZ"/>
-                            <h:outputLabel value="#{auftragServiceModel.auftragPLZ}"/>
-                            <h:outputLabel value="Ort"/>
-                            <h:outputLabel value="#{auftragServiceModel.auftragOrt}"/>
-                        </h:column>
-                    </h:panelGrid>
-                    <h:commandButton value="Weiteren eintragen" action="#{auftragServiceModel.neuerAuftrag()}"/>
-                </h:form>
-
+            </p>
+            <h:form>
                 <h:panelGrid columns="2">
-                    <h:column>
-                <h:dataTable var="paket" value="#{auftragServiceModel.aktuellePakete}">
-                    <h:column>    				
-                        <f:facet name="header">Paket Nr</f:facet>  
-                        #{paket.id}
-                    </h:column>
-                    <h:column>    				
-                        <f:facet name="header">Gewicht in Kg</f:facet>                          
-                        <h:outputText value="#{paket.gewichtInKg}">
-                            <f:convertNumber groupingUsed="true" minFractionDigits="1" />
-                        </h:outputText>
-                    </h:column>
-
-                    <h:column>    				
-                        <f:facet name="header">Länge in M</f:facet>  
-                        <h:outputText value="#{paket.laengeInM}">
-                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
-                        </h:outputText>
-                    </h:column>
-                    
-                    <h:column>    				
-                        <f:facet name="header">Breite in M</f:facet>  
-                        <h:outputText value="#{paket.breiteInM}">
-                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
-                        </h:outputText>
-                    </h:column>
-
-                    <h:column>    				
-                        <f:facet name="header">Höhe in M</f:facet>  
-                        <h:outputText value="#{paket.hoeheInM}">
-                            <f:convertNumber groupingUsed="true" minFractionDigits="2" />
-                        </h:outputText>
-                    </h:column>    
-                </h:dataTable>
-                        </h:column>
-                    <h:column>
-                <h:dataTable var="container" rendered="#{not empty auftragServiceModel.paketContainer}" value="#{auftragServiceModel.paketContainer}">
-                    <h:column>    				
-                        <f:facet name="header">Container Nr</f:facet>  
-                        #{container.id}
-                    </h:column>
-                    <h:column>    				
-                        <f:facet name="header">Paketanzahl</f:facet>  
-                        #{container.pakete.size()}
-                    </h:column>
-
-                </h:dataTable>
-                        </h:column>
+                    <h:outputLabel value="Auftragsnummer"/>
+                    <h:outputLabel value="#{auftragServiceModel.auftragBestellNr}"/>
+                    <h:outputLabel value="BestellNr"/>
+                    <h:outputLabel value="#{auftragServiceModel.auftragBestellNr}"/>
+                    <h:outputLabel value="Fahrer"/>
+                    <h:outputLabel value="#{auftragServiceModel.ausgewaehlterMitarbeiter.vorname} #{auftragServiceModel.ausgewaehlterMitarbeiter.name}"/>
+                    <h:outputLabel value="Fahrzeug"/>
+                    <h:outputLabel value="#{auftragServiceModel.ausgewaehltesFahrzeug.kennzeichen}"/>
+                    <h:outputLabel value="Auftraggeber"/>
+                    <h:outputLabel value="#{auftragServiceModel.auftragName}"/>
+                    <h:outputLabel value="Straße"/>
+                    <h:outputLabel value="#{auftragServiceModel.auftragStrasse}"/>
+                    <h:outputLabel value="PLZ"/>
+                    <h:outputLabel value="#{auftragServiceModel.auftragPLZ}"/>
+                    <h:outputLabel value="Ort"/>
+                    <h:outputLabel value="#{auftragServiceModel.auftragOrt}"/>
                 </h:panelGrid>
+                <h:commandButton value="Weiteren eintragen" action="#{auftragServiceModel.neuerAuftrag()}"/>
+            </h:form>
         </ui:define>
     </ui:composition>

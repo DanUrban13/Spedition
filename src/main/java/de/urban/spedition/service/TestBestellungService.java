@@ -5,6 +5,7 @@
  */
 package de.urban.spedition.service;
 
+import de.karatay.webshop.service.Bestellung;
 import de.urban.spedition.DTO.TBestellung;
 import java.util.Date;
 import java.util.logging.Level;
@@ -21,11 +22,12 @@ public class TestBestellungService implements BestellungIF {
     private Logger logger;
 
     @Override
-    public TBestellung lieferdatumPublizieren(String bestellNr, Date lieferdatum) {
+    public TBestellung lieferdatumPublizieren(long bestellNr, Date lieferdatum) {
         TBestellung b = new TBestellung();
         try {
-           b.setBestellNr(Long.parseLong(bestellNr,10));
+           b.setBestellNr(bestellNr);
            b.setLieferdatum(lieferdatum);
+           b.setbA(new Bestellung());
         } catch(Exception e) {
            logger.log(Level.INFO, e.toString());
         } 

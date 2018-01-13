@@ -72,6 +72,10 @@
             <to-view-id>/views/auftrag/auftragErstellen.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>auftragLoeschen</from-outcome>
+            <to-view-id>/views/auftrag/auftragLoeschen.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>auftragAnzeigen</from-outcome>
             <to-view-id>/views/auftrag/auftragAnzeigen.xhtml</to-view-id>
         </navigation-case>

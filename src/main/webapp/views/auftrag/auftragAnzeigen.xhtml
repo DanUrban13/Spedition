@@ -20,7 +20,9 @@
                     </h:column>
                     <h:column>    				
                         <f:facet name="header">Lieferdatum</f:facet>  
-                        #{auftrag.lieferDatum}
+                        <h:outputText value="#{auftrag.lieferDatum}">
+                            <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+                        </h:outputText>                        
                     </h:column>
                     <h:column>    				
                         <f:facet name="header">Einzelpakete</f:facet>  

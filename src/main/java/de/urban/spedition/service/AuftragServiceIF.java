@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AuftragServiceIF extends Serializable {
     public Auftrag erstelleAuftrag(Auftrag neuerAuftrag);
-    public Auftrag findeAuftrag(Auftrag auftrag);
+    public Auftrag findeAuftrag(long id);
     public Auftrag aendereAuftrag(Auftrag auftrag);
     public Auftrag loescheAuftrag(Auftrag auftrag);
     public List<Auftrag> leseAlleAuftraege();

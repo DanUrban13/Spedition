@@ -7,8 +7,10 @@ import de.urban.spedition.entity.Mitarbeiter;
 import de.urban.spedition.entity.Paket;
 import de.urban.spedition.entity.PaketContainer;
 import de.urban.spedition.entity.Transportfahrzeug;
+import de.urban.spedition.entity.converter.AuftragConverter;
 import de.urban.spedition.entity.converter.MitarbeiterConverter;
 import de.urban.spedition.entity.converter.TransportfahrzeugConverter;
+import de.urban.spedition.exceptions.CouldNotDeleteException;
 import de.urban.spedition.service.AuftragServiceIF;
 import de.urban.spedition.service.MitarbeiterServiceIF;
 import de.urban.spedition.service.TransportfahrzeugServiceIF;
@@ -41,6 +43,9 @@ public class AuftragServiceModel implements Serializable {
     private TransportfahrzeugConverter fahrzeugConverter;
     
     @Inject
+    private AuftragConverter auftragConverter;
+    
+    @Inject
     private transient Logger logger;
     
     private Mitarbeiter ausgewaehlterMitarbeiter;
@@ -62,6 +67,7 @@ public class AuftragServiceModel implements Serializable {
     private String auftragPLZ;
     private String auftragOrt;
     private Long auftragNr;
+    private Auftrag ausgewaehlterAuftrag;
     
     private double neuesPaketGewichtInKg;
     private double neuesPaketLaengeInM;
@@ -80,7 +86,9 @@ public class AuftragServiceModel implements Serializable {
         logger.log(Level.INFO, "erstelle neuen Auftrag");
         Auftrag neuerAuftrag = new Auftrag();
         neuerAuftrag.setBestellNr(this.auftragBestellNr);
+        if (paketContainer == null) paketContainer = new ArrayList<PaketContainer>();
         neuerAuftrag.setContainer(this.paketContainer);
+        if (aktuellePakete == null) aktuellePakete = new ArrayList<Paket>();
         neuerAuftrag.setIndividualPakete(this.aktuellePakete);
         Lieferadresse l = new Lieferadresse();
         l.setLieferName(this.auftragName);
@@ -110,6 +118,11 @@ public class AuftragServiceModel implements Serializable {
         this.ausgewaehltesFahrzeug = null;
         this.paketContainer = null;
         return "auftragErstellen";
+    }
+    
+    public String loescheAuftrag(){
+        this.auftragService.loescheAuftrag(ausgewaehlterAuftrag);
+        return "auftragAnzeigen";
     }
     
     public List<Transportfahrzeug> leseAlleFahrzeuge(){
@@ -394,6 +407,22 @@ public class AuftragServiceModel implements Serializable {
 
     public void setAuftragNr(Long auftragNr) {
         this.auftragNr = auftragNr;
+    }
+
+    public Auftrag getAusgewaehlterAuftrag() {
+        return ausgewaehlterAuftrag;
+    }
+
+    public void setAusgewaehlterAuftrag(Auftrag ausgewaehlterAuftrag) {
+        this.ausgewaehlterAuftrag = ausgewaehlterAuftrag;
+    }
+
+    public AuftragConverter getAuftragConverter() {
+        return auftragConverter;
+    }
+
+    public void setAuftragConverter(AuftragConverter auftragConverter) {
+        this.auftragConverter = auftragConverter;
     }
     
     

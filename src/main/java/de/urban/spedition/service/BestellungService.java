@@ -5,6 +5,7 @@ import de.karatay.webshop.service.Bestellung;
 import de.urban.spedition.DTO.TBestellung;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
@@ -21,27 +22,30 @@ public class BestellungService implements BestellungIF {
     private Logger logger;
     
     @Override
-    public TBestellung lieferdatumPublizieren(String bestellNr, Date lieferdatum) {
+    public TBestellung lieferdatumPublizieren(long bestellNr, Date lieferdatum) {
         TBestellung b = new TBestellung();
         try {
             //TODO setzte Lieferdatum bei Karatay
             Bestellung bA = new Bestellung();
-            bA.setBestellNr(Long.parseLong(bestellNr,10));
-            LocalDate in = LocalDate.parse("2017-01-01");
-            XMLGregorianCalendar out = DatatypeFactory.newInstance().newXMLGregorianCalendar(in.toString());
-            bA.setLieferDatum(out);
+            bA.setBestellNr(bestellNr);
+            GregorianCalendar c = new GregorianCalendar();
+            c.setTime(lieferdatum);
+            XMLGregorianCalendar lieferdatumGC = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+            bA.setLieferDatum(lieferdatumGC);
             
             try { // Call Web Service Operation
                 de.karatay.webshop.service.BestellungService_Service service = new de.karatay.webshop.service.BestellungService_Service();
                 de.karatay.webshop.service.BestellungService port = service.getBestellungServicePort();
                 de.karatay.webshop.service.Bestellung result = port.setzeLieferdatum(bA);
+                b.setbA(result);;
                 if (result != null) {
                     return b;
                 } else {
                     return null;
                 }
             } catch (Exception ex) {
-                // TODO handle custom exceptions here
+                logger.log(Level.INFO, ex.toString() );
+                logger.log(Level.INFO, "webshop nicht erreichbar" );
             }
 
         } catch(Exception e) {
