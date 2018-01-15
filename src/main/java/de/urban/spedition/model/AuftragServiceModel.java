@@ -124,9 +124,16 @@ public class AuftragServiceModel implements Serializable {
     }
     
     public String aendereAuftrag(){
-        ausgewaehlterAuftrag.setLieferDatum(new Date(lieferJahr-1900, lieferMonat-1, lieferTag));
+        ausgewaehlterAuftrag.setLieferDatum(new Date(lieferJahr-1900, lieferMonat-1, lieferTag+1));
         auftragService.aendereAuftrag(ausgewaehlterAuftrag);
         return "auftragAnzeigen";
+    }
+    
+    public String aendereAuftragLesen(){
+        this.lieferJahr = this.ausgewaehlterAuftrag.getLieferDatum().getYear()+1900;
+        this.lieferMonat = this.ausgewaehlterAuftrag.getLieferDatum().getMonth()+1;
+        this.lieferTag = this.ausgewaehlterAuftrag.getLieferDatum().getDate();
+        return "auftragAendern_1";
     }
         
     public String loescheAuftrag(){

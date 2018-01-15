@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -33,12 +34,14 @@ public class Auftrag extends GeneratedIdEntity{
     @ManyToOne(cascade = CascadeType.ALL)
     private Lieferadresse ziel;
     @OneToMany(mappedBy="auftrag", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @XmlTransient
     private List<PaketContainer> container;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Paket> individualPakete;
     @ManyToOne
+    @XmlTransient
     private Transportfahrzeug transporter;
 
     public long getBestellNr() {

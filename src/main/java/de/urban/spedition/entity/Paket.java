@@ -6,6 +6,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @XmlRootElement
@@ -15,6 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 )
 public class Paket extends GeneratedIdEntity{
     @ManyToOne
+    @XmlTransient
     private PaketContainer container;
     private double gewichtInKg;
     private double hoeheInM;

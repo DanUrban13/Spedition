@@ -3,7 +3,10 @@ package de.urban.spedition.service;
 import de.urban.spedition.entity.FsKlasse;
 import de.urban.spedition.entity.Mitarbeiter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,6 +18,9 @@ public class MitarbeiterService implements MitarbeiterServiceIF {
     
     @PersistenceContext
     private EntityManager em;
+    
+    @Inject
+    private Logger logger;
 
     @Transactional
     @Override
@@ -30,7 +36,15 @@ public class MitarbeiterService implements MitarbeiterServiceIF {
     @Override
     public List<Mitarbeiter> leseAlleMitarbeiter() {
         TypedQuery<Mitarbeiter> query = em.createNamedQuery("Mitarbeiter.alle", Mitarbeiter.class);
-        return query.getResultList();
+        try {
+            List<Mitarbeiter> res = query.getResultList();
+            System.out.println("test");
+            return res;
+        } catch (Exception e) {
+            logger.log(Level.INFO, e.toString());
+            return null;
+        }
+        
     }
 
     @Override

@@ -3,12 +3,12 @@ package de.urban.spedition.entity;
 import de.urban.spedition.entity.util.GeneratedIdEntity;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.ElementCollection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.PreRemove;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -18,7 +18,7 @@ import org.hibernate.annotations.FetchMode;
         query="SELECT m FROM Mitarbeiter AS m"
 )
 public class Mitarbeiter extends GeneratedIdEntity{
-    @OneToOne(mappedBy="fahrer", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy="fahrer", cascade = CascadeType.MERGE)
     private Transportfahrzeug fahrzeug;
     @ManyToMany
     @Fetch(FetchMode.SUBSELECT)
@@ -27,6 +27,11 @@ public class Mitarbeiter extends GeneratedIdEntity{
     private String vorname;
     private Date eintrittsDatum;
     private Date geburtsDatum;
+    
+    @PreRemove
+    private void preRemove() {
+        fahrzeug = null;
+    }
 
     public Mitarbeiter() {
     }

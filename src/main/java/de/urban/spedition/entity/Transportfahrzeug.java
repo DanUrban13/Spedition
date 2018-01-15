@@ -17,7 +17,7 @@ import javax.persistence.PreRemove;
         query="SELECT t FROM Transportfahrzeug AS t"
 )
 public class Transportfahrzeug extends GeneratedIdEntity{
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne
     private Mitarbeiter fahrer;
     @OneToMany(mappedBy="transporter", cascade = CascadeType.MERGE)
     private List<Auftrag> aktuelleAuftraege;

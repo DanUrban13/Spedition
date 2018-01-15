@@ -3,7 +3,6 @@ package de.urban.spedition.service;
 
 import de.karatay.webshop.service.Bestellung;
 import de.urban.spedition.DTO.TBestellung;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
@@ -46,14 +45,13 @@ public class BestellungService implements BestellungIF {
             } catch (Exception ex) {
                 logger.log(Level.INFO, ex.toString() );
                 logger.log(Level.INFO, "webshop nicht erreichbar" );
+                return null;
             }
 
         } catch(Exception e) {
             logger.log(Level.INFO, e.toString());
-        } 
-        
-        return b;
-        
+            return null;
+        }        
     }
     
 }
