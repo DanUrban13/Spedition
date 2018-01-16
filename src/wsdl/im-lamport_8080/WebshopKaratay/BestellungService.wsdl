@@ -30,7 +30,9 @@
   <xs:complexType abstract="true" name="generatedIdEntity">
     <xs:complexContent>
       <xs:extension base="tns:singleIdEntity">
-        <xs:sequence/>
+        <xs:sequence>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+        </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>

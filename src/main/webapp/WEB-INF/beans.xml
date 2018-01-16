@@ -5,6 +5,6 @@
        bean-discovery-mode="annotated">
     
     <alternatives> 
-        <class>de.urban.spedition.service.TestBestellungService</class> 
+        <class>de.urban.spedition.service.BestellungService</class> 
     </alternatives> 
 </beans>

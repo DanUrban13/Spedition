@@ -1,7 +1,7 @@
 
 #top {
     position: relative;
-    background-color: #036fab;
+    background-color: #dddddd;
     color: white;
     padding: 5px;
     margin: 0px 0px 10px 0px;
@@ -9,11 +9,11 @@
 
 #maintop {
     position: relative;
-    background-color: #036fab;
+    background-color: #751606;
     color: white;
     padding: 5px;
     margin: 0px 0px 10px 0px;
-    height: 100px;
+    height: 105px;
     font-size: xx-large;
     vertical-align: text-top;
 }
@@ -21,25 +21,26 @@
 #bottom {
     clear: both;
     position: relative;
-    background-color: #c2dfef;
+    background-color: #751606;
+    color: white;
     padding: 5px;
     margin: 10px 0px 0px 0px;
 }
 
 #left {
     float: left;
-    background-color: #ece3a5;
+    background-color: #dddddd;
     padding: 5px;
     margin-bottom: 10px;
     width: 150px;
-    height: max;
+    height: 450px;
 }
 
 #right {
     float: right;
     background-color: #ece3a5;
     padding: 5px;
-    width: 150px;
+    width: 5px;
 }
 
 .center_content {
@@ -52,6 +53,7 @@
     background-color: #dddddd;
     padding: 5px;
     margin-left: 170px;
+    text-align: left;
 }
 
 .right_content {
@@ -70,6 +72,21 @@
   color: black;
   font-weight : bold;
   text-decoration : underline;
+}
+
+.btn {
+    width: 130px;
+    height: 30px;
+}
+
+.btntop {
+    width: 220px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.btncontent {
+    
 }
 
 

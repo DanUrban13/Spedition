@@ -26,7 +26,7 @@ public class BestellungService implements BestellungIF {
         try {
             //TODO setzte Lieferdatum bei Karatay
             Bestellung bA = new Bestellung();
-            bA.setBestellNr(bestellNr);
+            bA.setId(bestellNr);
             GregorianCalendar c = new GregorianCalendar();
             c.setTime(lieferdatum);
             XMLGregorianCalendar lieferdatumGC = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);

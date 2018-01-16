@@ -77,15 +77,17 @@ public class AuftragService implements AuftragServiceIF {
         auftrag.setIndividualPakete(pakete);
         auftrag.setContainer(new ArrayList<PaketContainer>());
         auftrag.setContainer(packePakete(auftrag.getIndividualPakete()));
-        for (PaketContainer pC : auftrag.getContainer()) {
-            for (int i = 0; i< auftrag.getIndividualPakete().size();i++) {
-                for (Paket s : pC.getPakete()) {
-                    if (auftrag.getIndividualPakete().get(i).getPfuschNummer() == s.getPfuschNummer()) {
-                        auftrag.getIndividualPakete().remove(i);
-                    }
-                }
-            }
-        }
+//        for (PaketContainer pC : auftrag.getContainer()) {
+//            for (int i = 0; i< auftrag.getIndividualPakete().size();i++) {
+//                for (Paket s : pC.getPakete()) {
+//                    if (auftrag.getIndividualPakete().get(i) != null) {
+//                        if (auftrag.getIndividualPakete().get(i).getPfuschNummer() == s.getPfuschNummer()) {
+//                            auftrag.getIndividualPakete().remove(i);
+//                        }
+//                    }
+//                }
+//            }
+//        }
         auftrag.setBestellNr(neuerAuftrag.getBestellNr());
         auftrag.setLieferDatum(new Date());
         auftrag.setTransporter(new Transportfahrzeug());
@@ -305,4 +307,13 @@ public class AuftragService implements AuftragServiceIF {
         res = query.getResultList();
         return res;
     }    
+
+    @WebMethod(exclude=true)
+    @Override
+    public void lieferdatumPublizieren(long nr) {
+        Auftrag auftrag = em.find(Auftrag.class, nr);
+        if (auftrag != null) {
+            bestellService.lieferdatumPublizieren(auftrag.getBestellNr(), auftrag.getLieferDatum());
+        }
+    }
 }

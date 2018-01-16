@@ -105,6 +105,7 @@ public class AuftragServiceModel implements Serializable {
         try {
             neuerAuftrag = this.auftragService.erstelleAuftrag(neuerAuftrag);
             this.auftragDatum = neuerAuftrag.getLieferDatum();
+            
         } catch (Exception e) {
             logger.log(Level.INFO,e.toString());
             return "auftragAnzeigen";
@@ -113,6 +114,11 @@ public class AuftragServiceModel implements Serializable {
         this.ausgewaehltesFahrzeug = neuerAuftrag.getTransporter();
         this.auftragNr = neuerAuftrag.getId();
         return "auftragErstellt";
+    }
+    
+    public String lieferdatumPublizieren(long id) {
+        auftragService.lieferdatumPublizieren(id);
+        return "auftragAnzeigen";
     }
     
     public String neuerAuftrag() {
@@ -155,7 +161,10 @@ public class AuftragServiceModel implements Serializable {
         p.setBreiteInM(this.neuesPaketBreiteInM);
         p.setHoeheInM(this.neuesPaketHoeheInM);
         p.setLaengeInM(this.neuesPaketLaengeInM);
-        p.setPfuschNummer(++aktuellePfuschNummer);
+        if (aktuellePfuschNummer==0) aktuellePfuschNummer=1;
+        aktuellePfuschNummer = aktuellePfuschNummer+1;
+        p.setPfuschNummer(aktuellePfuschNummer);
+        if (aktuellePakete == null) aktuellePakete = new ArrayList<Paket>();
         this.aktuellePakete.add(p);
         return "auftragErstellen";
     }

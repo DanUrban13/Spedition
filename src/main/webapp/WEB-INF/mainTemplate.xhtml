@@ -13,7 +13,7 @@
     <h:body>
         
         <div id="maintop" class="maintop">
-            <h:graphicImage value="/images/lefttop.jpg" alt="Spedition" height="100px"/>
+            <h:graphicImage value="/images/lefttop.jpg" alt="Spedition" height="105px"/>
             <ui:insert name="maintop">
                 Speditionsverwaltung
             </ui:insert>
@@ -22,16 +22,16 @@
             <div id="left">
                 <ui:insert name="mainleft">
                     <h:form>
-                        <h:commandButton value="Aufträge" action="auftragErstellen" label="Label"/> 
+                        <h:commandButton value="Aufträge" class="btn" action="auftragErstellen" label="Label"/> 
                         <br/>
                         <br/>
-                        <h:commandButton value="Personal" action="mitarbeiterErstellen" label="Label"/> 
+                        <h:commandButton value="Personal" class="btn" action="mitarbeiterErstellen" label="Label"/> 
                         <br/>
                         <br/>
-                        <h:commandButton value="Fahrzeuge" action="flottenMgmtNav" label="Label"/> 
+                        <h:commandButton value="Fahrzeuge" class="btn"  action="flottenMgmtNav" label="Label"/> 
                         <br/>
                         <br/>
-                        <h:commandButton value="Führerscheine" action="fuehrerscheinKlasseErstellen" label="Label"/> 
+                        <h:commandButton value="Führerscheine" class="btn" action="fuehrerscheinKlasseErstellen" label="Label"/> 
                     </h:form>
                 </ui:insert>
             </div>
