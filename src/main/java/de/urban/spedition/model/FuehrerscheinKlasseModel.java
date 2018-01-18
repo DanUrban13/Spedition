@@ -63,7 +63,6 @@ public class FuehrerscheinKlasseModel implements Serializable {
         neu.setFsKlasse(this.fsKlasseName);
         neu.setBeschreibung(this.fsKlasseBeschreibung);
         this.neueFsKlasse = tf.erstelleFuehrerscheinklasse(neu);
-        System.out.println(neueFsKlasse.toString());
         
         return "eintragFSok";
     }

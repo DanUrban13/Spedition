@@ -4,6 +4,7 @@
     background-color: #dddddd;
     color: white;
     padding: 5px;
+    height: 50px;
     margin: 0px 0px 10px 0px;
 }
 
@@ -30,10 +31,10 @@
 #left {
     float: left;
     background-color: #dddddd;
-    padding: 5px;
+    padding: 15px;
     margin-bottom: 10px;
-    width: 150px;
-    height: 450px;
+    width: 130px;
+    height: 550px;
 }
 
 #right {
@@ -43,17 +44,17 @@
     width: 5px;
 }
 
-.center_content {
-    position: relative;
-    background-color: #dddddd;
+/*#content {
+    float: right;
+    background-color: #ece3a5;
     padding: 5px;
-}
+    width: 5px;
+}*/
 
 .left_content {
     background-color: #dddddd;
     padding: 5px;
     margin-left: 170px;
-    text-align: left;
 }
 
 .right_content {
@@ -87,6 +88,32 @@
 
 .btncontent {
     
+}
+
+/*Style von LagerBrunthaler*/
+.datatable{
+    border-collapse:collapse;
+    border: #000000;
+    border-style: solid;
+}
+
+.headtable{
+    text-align:center;
+    background:none repeat scroll 0 0 darkgray;
+    border-bottom:1px solid #BBBBBB;
+    padding:24px;
+}
+
+.rowtabel_odd{
+    text-align: center;
+    background:none repeat scroll 0 0;
+    border-top:1px solid #BBBBBB;
+}
+
+.rowtabel_even{
+    text-align:center;
+    background:none repeat scroll 0 0 #F9F9F9;
+    border-top:1px solid #BBBBBB;
 }
 
 

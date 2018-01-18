@@ -9,7 +9,7 @@
             
             <h1>Alle Aufträge</h1>
 
-                <h:dataTable var="auftrag" value="#{auftragServiceModel.leseAlleAuftraege()}">
+                <h:dataTable var="auftrag" styleClass="datatable" rowClasses="rowtabel_odd, rowtabel_even" headerClass="headtable" value="#{auftragServiceModel.leseAlleAuftraege()}">
                     <h:column>    				
                         <f:facet name="header">Auftrag Nr</f:facet>  
                         #{auftrag.auftragNr}

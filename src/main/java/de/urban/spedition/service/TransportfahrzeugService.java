@@ -31,7 +31,6 @@ public class TransportfahrzeugService implements TransportfahrzeugServiceIF {
     @Transactional
     @Override
     public Transportfahrzeug erstelleTransportfahrzeug(Transportfahrzeug neuesTpf) {
-        System.out.println("neues tpf" + neuesTpf.toString());
         neuesTpf.setFsBenoetigt(em.merge(neuesTpf.getFsBenoetigt()));
         em.persist(neuesTpf);
         return null;

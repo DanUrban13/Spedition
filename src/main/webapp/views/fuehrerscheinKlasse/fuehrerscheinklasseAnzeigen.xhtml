@@ -10,7 +10,7 @@
         <div>
             <h:form>
 
-                <h:dataTable var="fsKlasse" value="#{fuehrerscheinKlasseModel.leseAlleFsKlasse()}">
+                <h:dataTable var="fsKlasse" styleClass="datatable" rowClasses="rowtabel_odd, rowtabel_even" headerClass="headtable" value="#{fuehrerscheinKlasseModel.leseAlleFsKlasse()}">
                     <h:column>    				
                         <f:facet name="header">Id  </f:facet>  
                         #{fsKlasse.id}  

@@ -36,21 +36,17 @@ public class BestellungService implements BestellungIF {
                 de.karatay.webshop.service.BestellungService_Service service = new de.karatay.webshop.service.BestellungService_Service();
                 de.karatay.webshop.service.BestellungService port = service.getBestellungServicePort();
                 de.karatay.webshop.service.Bestellung result = port.setzeLieferdatum(bA);
-                b.setbA(result);;
-                if (result != null) {
-                    return b;
-                } else {
-                    return null;
-                }
+                b.setbA(result);
+                return b;
             } catch (Exception ex) {
                 logger.log(Level.INFO, ex.toString() );
                 logger.log(Level.INFO, "webshop nicht erreichbar" );
-                return null;
+                return b;
             }
 
         } catch(Exception e) {
             logger.log(Level.INFO, e.toString());
-            return null;
+            return b;
         }        
     }
     

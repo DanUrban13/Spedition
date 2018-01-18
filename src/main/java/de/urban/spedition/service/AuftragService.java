@@ -26,7 +26,7 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 @RequestScoped
-@WebService
+@WebService(serviceName = "AuftragService")
 public class AuftragService implements AuftragServiceIF {
     
     @PersistenceContext
@@ -218,7 +218,6 @@ public class AuftragService implements AuftragServiceIF {
     @Transactional
     @Override
     public Auftrag aendereAuftrag(Auftrag auftrag) {
-        System.out.println(auftrag.toString());
         Auftrag auftragO = em.find(Auftrag.class, auftrag.getId());
         auftragO.setLieferDatum(auftrag.getLieferDatum());
         auftragO.setZiel(em.merge(auftrag.getZiel()));

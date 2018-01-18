@@ -25,7 +25,6 @@ public class MitarbeiterService implements MitarbeiterServiceIF {
     @Transactional
     @Override
     public Mitarbeiter erstelleMitarbeiter(Mitarbeiter neuerMitarbeiter) {
-        System.out.println("Neuer Mitarbeiter " + neuerMitarbeiter.toString());
         for (FsKlasse f : neuerMitarbeiter.getFuehrerscheinklassen()) {
             if (f != null) em.find(FsKlasse.class, f.getId());
         }
@@ -38,7 +37,6 @@ public class MitarbeiterService implements MitarbeiterServiceIF {
         TypedQuery<Mitarbeiter> query = em.createNamedQuery("Mitarbeiter.alle", Mitarbeiter.class);
         try {
             List<Mitarbeiter> res = query.getResultList();
-            System.out.println("test");
             return res;
         } catch (Exception e) {
             logger.log(Level.INFO, e.toString());
