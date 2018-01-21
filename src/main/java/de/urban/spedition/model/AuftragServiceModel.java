@@ -118,7 +118,7 @@ public class AuftragServiceModel implements Serializable {
     
     public String lieferdatumPublizieren(long id) {
         auftragService.lieferdatumPublizieren(id);
-        return "auftragAnzeigen";
+        return "datumUebermittelt";
     }
     
     public String neuerAuftrag() {
@@ -130,7 +130,7 @@ public class AuftragServiceModel implements Serializable {
     }
     
     public String aendereAuftrag(){
-        ausgewaehlterAuftrag.setLieferDatum(new Date(lieferJahr-1900, lieferMonat-1, lieferTag+1));
+        ausgewaehlterAuftrag.setLieferDatum(new Date(lieferJahr-1900, lieferMonat-1, lieferTag));
         auftragService.aendereAuftrag(ausgewaehlterAuftrag);
         return "auftragAnzeigen";
     }

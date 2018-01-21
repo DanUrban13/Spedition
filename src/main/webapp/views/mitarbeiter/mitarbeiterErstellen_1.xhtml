@@ -6,18 +6,29 @@
             Personalmanagement
         </ui:define>
         <ui:define name="perscontent">            
-            
-            <h1>Erstelle neuen Mitarbeiter</h1>
-            <h1>Führerscheinklassen eintragen</h1>
-            <h:form>
-                <h:commandButton value="hinzufuegen" action="klasseHinzufuegen"/>
-            </h:form>
-            <h:form>
-                <h:commandButton value="zurück" action="mitarbeiterErstellen"/>
-            </h:form>
-            <h:form>
-                <h:commandButton value="fertig" action="#{personalmgmtModel.neuerMitarbeiter()}"/>
-            </h:form>
+            <p>
+                <h1>Erstelle neuen Mitarbeiter</h1>
+            </p>
+            <p>
+                <h1>Führerscheinklassen eintragen</h1>
+            </p>
+            <h:panelGrid columns="3">
+                <h:column>
+                <h:form>
+                    <h:commandButton value="hinzufuegen" action="klasseHinzufuegen"/>
+                </h:form>
+                    </h:column>
+                <h:column>
+                <h:form>
+                    <h:commandButton value="zurück" action="mitarbeiterErstellen"/>
+                </h:form>
+                    </h:column>
+                <h:column>
+                <h:form>
+                    <h:commandButton value="fertig" action="#{personalmgmtModel.neuerMitarbeiter()}"/>
+                </h:form>
+                    </h:column>
+            </h:panelGrid>
             
             <h:dataTable var="fsklasse" value="#{personalmgmtModel.fsKlassen}">
                 <h:column>    				

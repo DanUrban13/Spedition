@@ -1,0 +1,27 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            template="/WEB-INF/fuehTemplate.xhtml"
+            xmlns:h="http://xmlns.jcp.org/jsf/html"
+            xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="maintop">
+        Fuehrerscheinklassen
+    </ui:define>
+    <ui:define name="fuehcontent">
+
+        <div>
+            <h:form>
+                <h:panelGrid columns="1">
+                        <h:outputLabel value="Klasse auswählen:"/>
+                        <h:selectOneMenu value="#{fuehrerscheinKlasseModel.ausgewaehlteFsKlasse}">
+                            <f:selectItems value="#{fuehrerscheinKlasseModel.leseAlleFsKlasse()}" var="klasse" 
+                                           itemLabel="#{klasse.fsKlasse}"/>
+                            <f:converter binding="#{fuehrerscheinKlasseModel.fsKlasseConverter}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+
+
+                <h:commandButton value="Klasse löschen" action="#{fuehrerscheinKlasseModel.loescheKlasse()}"/>
+            </h:form>
+        </div>
+
+    </ui:define>
+</ui:composition>

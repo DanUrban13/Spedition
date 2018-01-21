@@ -52,7 +52,6 @@ public class PersonalmgmtModel implements Serializable {
     private FsKlasse fsKlasseAusgewaehlt;
     
     public String klasseHinzufuegen(){
-        if (fsKlassen == null) fsKlassen = new ArrayList<FsKlasse>();
         fsKlassen.add(fsKlasseAusgewaehlt);
         return "mitarbeiterErstellen_1";
     }  
@@ -62,7 +61,7 @@ public class PersonalmgmtModel implements Serializable {
     }
     
     public String schrittZwei() {
-        if (fsKlassen != null) fsKlassen.clear();
+        fsKlassen = new ArrayList<FsKlasse>();
         return "mitarbeiterErstellen_1";
     }
         

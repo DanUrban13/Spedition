@@ -60,11 +60,20 @@
             <from-outcome>eintragFSok</from-outcome>
             <to-view-id>/views/fuehrerscheinKlasse/fuehrerscheinklasseErstellenBestaetigung.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>datumUebermittelt</from-outcome>
+            <to-view-id>/views/auftrag/datumUebermittelt.xhtml</to-view-id>
+        </navigation-case>
         
         <navigation-case>
             <from-outcome>fuehrerscheinKlasseErstellen</from-outcome>
             <to-view-id>/views/fuehrerscheinKlasse/fuehrerscheinklasseErstellen.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>fuehrerscheinKlasseLoeschen</from-outcome>
+            <to-view-id>/views/fuehrerscheinKlasse/fuehrerscheinklasseLoeschen.xhtml</to-view-id>
+        </navigation-case>
+
 
         <navigation-case>
             <from-outcome>fuehrerscheinKlasseAnzeigen</from-outcome>

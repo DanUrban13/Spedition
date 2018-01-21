@@ -77,17 +77,7 @@ public class AuftragService implements AuftragServiceIF {
         auftrag.setIndividualPakete(pakete);
         auftrag.setContainer(new ArrayList<PaketContainer>());
         auftrag.setContainer(packePakete(auftrag.getIndividualPakete()));
-//        for (PaketContainer pC : auftrag.getContainer()) {
-//            for (int i = 0; i< auftrag.getIndividualPakete().size();i++) {
-//                for (Paket s : pC.getPakete()) {
-//                    if (auftrag.getIndividualPakete().get(i) != null) {
-//                        if (auftrag.getIndividualPakete().get(i).getPfuschNummer() == s.getPfuschNummer()) {
-//                            auftrag.getIndividualPakete().remove(i);
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        
         auftrag.setBestellNr(neuerAuftrag.getBestellNr());
         auftrag.setLieferDatum(new Date());
         auftrag.setTransporter(new Transportfahrzeug());
@@ -101,33 +91,7 @@ public class AuftragService implements AuftragServiceIF {
         l.setAdresse(a);
         auftrag.setZiel(l);
         // berechne Aufrag Volumen
-        double volumen = 0;
-        for (PaketContainer p : auftrag.getContainer()) {
-            volumen = volumen + 1.0;
-        }
-        for (Paket p : auftrag.getIndividualPakete()) {
-            volumen = volumen + 
-                    p.getBreiteInM()*p.getHoeheInM()*p.getLaengeInM();
-        }
-        // finde Fahrzeug in welches der Auftrag passt
-        Transportfahrzeug tf = new Transportfahrzeug();
-        tf = tfS.findeVerfuegbaresFahrzeug(volumen);
-        // finde Mitarbeiter welcher Fahrzeug bedienen kann
-        // wenn fahrzeug noch keinen Mitarbeiter zugewiesen hat
-        if (tf.getFahrer() == null && tf.getKennzeichen()!= null && tf.getKennzeichen().length() != 0) {
-            for (Mitarbeiter m : mS.leseAlleMitarbeiter()){
-                if (m.getFahrzeug() == null) {
-                    for (FsKlasse fs : m.getFuehrerscheinklassen()){
-                        if(fs.getId() == tf.getFsBenoetigt().getId()) {
-                            tf.setFahrer(m);
-                            break;
-                        }
-                    }
-                }
-                if (tf.getFahrer() != null) break;
-            }
-        }
-        
+        Transportfahrzeug tf = findeTransportfahrzeug(auftrag);
         auftrag.setZiel(em.merge(auftrag.getZiel()));
         for (Paket p : auftrag.getIndividualPakete()) {
             em.persist(p);
@@ -219,12 +183,66 @@ public class AuftragService implements AuftragServiceIF {
     @Override
     public Auftrag aendereAuftrag(Auftrag auftrag) {
         Auftrag auftragO = em.find(Auftrag.class, auftrag.getId());
+        
+        if (auftragO.getTransporter()==null || auftrag.getTransporter().getFahrer() == null) {
+            Transportfahrzeug t = new Transportfahrzeug();
+            if (auftragO.getTransporter()==null)
+                t = findeTransportfahrzeug(auftragO);
+            
+            if (t.getFahrer() == null && t.getKennzeichen()!= null && t.getKennzeichen().length() != 0 ) {
+                for (Mitarbeiter m : mS.leseAlleMitarbeiter()){
+                    if (m.getFahrzeug() == null) {
+                        for (FsKlasse fs : m.getFuehrerscheinklassen()){
+                            if(fs.getId() == t.getFsBenoetigt().getId()) {
+                                t.setFahrer(m);
+                                break;
+                            }
+                        }
+                    }
+                    if (t.getFahrer() != null) break;
+                }
+            }
+               
+            if (t.getKennzeichen()!= null && t.getKennzeichen().length() != 0)
+                auftrag.setTransporter(em.merge(t));
+         
+        }        
         auftragO.setLieferDatum(auftrag.getLieferDatum());
         auftragO.setZiel(em.merge(auftrag.getZiel()));
         em.merge(auftragO);
         return auftragO;
     }
 
+    private Transportfahrzeug findeTransportfahrzeug(Auftrag auftrag) {
+        double volumen = 0;
+        for (PaketContainer p : auftrag.getContainer()) {
+            volumen = volumen + 1.0;
+        }
+        for (Paket p : auftrag.getIndividualPakete()) {
+            volumen = volumen + 
+                    p.getBreiteInM()*p.getHoeheInM()*p.getLaengeInM();
+        }
+        // finde Fahrzeug in welches der Auftrag passt
+        Transportfahrzeug tf = new Transportfahrzeug();
+        tf = tfS.findeVerfuegbaresFahrzeug(volumen);
+        // finde Mitarbeiter welcher Fahrzeug bedienen kann
+        // wenn fahrzeug noch keinen Mitarbeiter zugewiesen hat
+        if (tf.getFahrer() == null && tf.getKennzeichen()!= null && tf.getKennzeichen().length() != 0) {
+            for (Mitarbeiter m : mS.leseAlleMitarbeiter()){
+                if (m.getFahrzeug() == null) {
+                    for (FsKlasse fs : m.getFuehrerscheinklassen()){
+                        if(fs.getId() == tf.getFsBenoetigt().getId()) {
+                            tf.setFahrer(m);
+                            break;
+                        }
+                    }
+                }
+                if (tf.getFahrer() != null) break;
+            }
+        }
+        return tf;
+    }
+    
     @WebMethod(exclude=true)
     @Transactional
     @Override

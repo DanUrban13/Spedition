@@ -2,6 +2,7 @@ package de.urban.spedition.service;
 
 import de.urban.spedition.entity.Auftrag;
 import de.urban.spedition.entity.FsKlasse;
+import de.urban.spedition.entity.Mitarbeiter;
 import de.urban.spedition.entity.Paket;
 import de.urban.spedition.entity.PaketContainer;
 import de.urban.spedition.entity.Transportfahrzeug;
@@ -107,6 +108,40 @@ public class TransportfahrzeugService implements TransportfahrzeugServiceIF {
         tpf = em.find(Transportfahrzeug.class, tpf.getId());
         em.remove(tpf);
         return null;
+    }
+
+    @Transactional
+    @Override
+    public void loescheFsKlasse(FsKlasse f) {
+        long fsId = f.getId();
+        TypedQuery<Transportfahrzeug> query = em.createQuery("Select t from Transportfahrzeug t where t.fsBenoetigt=:arg1", Transportfahrzeug.class);
+        
+        query.setParameter("arg1", f);
+        
+        List<Transportfahrzeug> t = new ArrayList<Transportfahrzeug>();
+        t = query.getResultList();
+        
+        for (Transportfahrzeug tf : t) {
+            tf.setFsBenoetigt(null);
+            em.merge(tf);            
+        }       
+        
+        TypedQuery<Mitarbeiter> query2 = em.createNamedQuery("Mitarbeiter.alle", Mitarbeiter.class);
+        List<Mitarbeiter> m = new ArrayList<Mitarbeiter>();
+        m = query2.getResultList();
+        for (Mitarbeiter ma : m ) {
+            for (int i = 0; i< ma.getFuehrerscheinklassen().size(); i++) {
+                if (ma.getFuehrerscheinklassen().get(i).getId() == f.getId()) {
+                    System.out.println("Mitarbeiter" + ma.getName());
+                    ma.getFuehrerscheinklassen().remove(ma.getFuehrerscheinklassen().get(i));
+                }
+                
+            }
+            em.merge(ma);
+        }
+        
+        f = em.merge(f);
+        em.remove(f);
     }
     
     

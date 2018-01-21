@@ -1,6 +1,7 @@
 package de.urban.spedition.model;
 
 import de.urban.spedition.entity.FsKlasse;
+import de.urban.spedition.entity.converter.FsKlasseConverter;
 import de.urban.spedition.service.TransportfahrzeugServiceIF;
 import java.io.Serializable;
 import java.util.List;
@@ -17,16 +18,25 @@ public class FuehrerscheinKlasseModel implements Serializable {
     TransportfahrzeugServiceIF tf;
     
     @Inject
+    FsKlasseConverter fsKlasseConverter;
+    
+    @Inject
     private transient Logger logger;
     
     private String fsKlasseName;
     private String fsKlasseBeschreibung;
     private FsKlasse neueFsKlasse;
+    private FsKlasse ausgewaehlteFsKlasse;
     
     public String neueKlasse() {
         fsKlasseName = "";
         fsKlasseBeschreibung = "";
         return "fuehrerscheinKlasseErstellen";
+    }
+    
+    public String loescheKlasse() {
+        tf.loescheFsKlasse(ausgewaehlteFsKlasse);
+        return "fuehrerscheinKlasseAnzeigen";
     }
 
     public FuehrerscheinKlasseModel() {
@@ -67,8 +77,24 @@ public class FuehrerscheinKlasseModel implements Serializable {
         return "eintragFSok";
     }
     
-        public List<FsKlasse> leseAlleFsKlasse(){
+    public List<FsKlasse> leseAlleFsKlasse(){
         return this.tf.leseAlleFsKlasse();
+    }
+
+    public FsKlasse getAusgewaehlteFsKlasse() {
+        return ausgewaehlteFsKlasse;
+    }
+
+    public void setAusgewaehlteFsKlasse(FsKlasse ausgewaehlteFsKlasse) {
+        this.ausgewaehlteFsKlasse = ausgewaehlteFsKlasse;
+    }
+
+    public FsKlasseConverter getFsKlasseConverter() {
+        return fsKlasseConverter;
+    }
+
+    public void setFsKlasseConverter(FsKlasseConverter fsKlasseConverter) {
+        this.fsKlasseConverter = fsKlasseConverter;
     }
     
     

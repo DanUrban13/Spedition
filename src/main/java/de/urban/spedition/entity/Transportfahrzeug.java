@@ -109,6 +109,11 @@ public class Transportfahrzeug extends GeneratedIdEntity{
     public Long getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Transportfahrzeug{" + ", kennzeichen=" + kennzeichen + '}';
+    }
     
     
     
