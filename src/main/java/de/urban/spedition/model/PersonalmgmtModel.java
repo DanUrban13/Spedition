@@ -82,7 +82,6 @@ public class PersonalmgmtModel implements Serializable {
     
     public String aendereMitarbeiterAuswahl(){
         try {
-            logger.log(Level.INFO, "aendere Mitarbeiter");
             this.ausgewaehlterMitarbeiter = this.mitarbeiterService.findeMitarbeiter(this.ausgewaehlterMitarbeiter.getId());
             this.Vorname = this.ausgewaehlterMitarbeiter.getVorname();
             this.Nachname = this.ausgewaehlterMitarbeiter.getName();
@@ -94,7 +93,7 @@ public class PersonalmgmtModel implements Serializable {
             this.gebTag = this.ausgewaehlterMitarbeiter.getGeburtsDatum().getDate();
             return "aendereMitarbeiterErweitert";
         } catch(Exception e) {
-            
+            logger.log(Level.INFO, e.toString());
             return "mitarbeiterErstellen";
         }
     }
@@ -116,6 +115,7 @@ public class PersonalmgmtModel implements Serializable {
             else 
                 throw new CouldNotDeleteException();
         } catch (Exception e) {
+            logger.log(Level.INFO, e.toString());
             return "mitarbeiterAnzeigen";
         }
     }

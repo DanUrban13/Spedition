@@ -132,7 +132,6 @@ public class TransportfahrzeugService implements TransportfahrzeugServiceIF {
         for (Mitarbeiter ma : m ) {
             for (int i = 0; i< ma.getFuehrerscheinklassen().size(); i++) {
                 if (ma.getFuehrerscheinklassen().get(i).getId() == f.getId()) {
-                    System.out.println("Mitarbeiter" + ma.getName());
                     ma.getFuehrerscheinklassen().remove(ma.getFuehrerscheinklassen().get(i));
                 }
                 

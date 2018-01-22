@@ -66,6 +66,7 @@ public class MitarbeiterService implements MitarbeiterServiceIF {
             this.em.remove(mitarbeiter);
             return null;
         } catch (Exception e) {
+            logger.log(Level.INFO, e.toString());
             return mitarbeiter;
         }
     }
